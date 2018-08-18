@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/mainPage/mainPage",
+        "pages/questionPage/questionPage",
+        "pages/result/result"
+    ],
+    "window": {
+        "navigationBarTitleText": "2018直男考卷",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    }
+}

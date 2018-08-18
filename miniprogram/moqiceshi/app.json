@@ -1,0 +1,19 @@
+{
+    "pages": [
+        "pages/entrance/entrance",
+        "pages/start/start",
+        "pages/choose/choose",
+        "pages/matrixcode/matrixcode",
+        "pages/guestchoose/guestchoose",
+        "pages/hostAnswer/hostAnswer",
+        "pages/showoneguestanswer/showoneguestanswer",
+        "pages/relationshipresult/relationshipresult",
+        "pages/friendsanswerlist/friendsanswerlist"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "好友脑回路匹配",
+        "navigationBarBackgroundColor": "#fff"
+    }
+}

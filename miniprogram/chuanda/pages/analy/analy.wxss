@@ -1,0 +1,4 @@
+page {background-attachment:fixed;background-repeat:no-repeat;-moz-background-size:100% 100%;background-size:100% 100%;background:url(http://material.motimaster.com/liuhongjie1532495170000/518a1c386e87c9309520f44ca7a3a9ba.jpeg);}
+ @-webkit-keyframes ef_1 
+                      { 
+                   0% {left:0rpx;top:30rpx;}  25.0% {left:0rpx;top:740rpx;}  50.0% {left:0rpx;top:30rpx;}  75.0% {left:0rpx;top:740rpx;}  100% {left:0rpx;top:30rpx;} }

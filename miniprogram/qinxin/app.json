@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/page1/page1",
+        "pages/page2/page2"
+    ],
+    "window": {
+        "navigationBarTitleText": "印象",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundTextStyle": "light"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "pages": [
+        "pages/create2/create2",
+        "pages/create3/create3",
+        "pages/share2/share2"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "姓名契合度",
+        "backgroundColor": "#383838",
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light"
+    }
+}

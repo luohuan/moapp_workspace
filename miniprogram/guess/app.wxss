@@ -1,0 +1,2 @@
+@import "./styles/style_default.wxss";
+page {overflow-x:hidden;height:100%;}

@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/listPage/listPage",
+        "pages/webview/webview",
+        "pages/payment/payment"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "娱乐盒子",
+        "navigationBarTextStyle": "black"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#383838",
+    "usingComponents": {},
+    "navigationBarBackgroundColor": "#383838",
+    "navigationBarTextStyle": "#383838",
+    "backgroundTextStyle": "dark"
+}

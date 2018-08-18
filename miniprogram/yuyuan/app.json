@@ -1,0 +1,14 @@
+{
+    "pages": [
+        "pages/begin/begin",
+        "pages/page1/page1",
+        "pages/mainpage/mainpage",
+        "pages/share/share"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "好友回忆墙",
+        "navigationBarBackgroundColor": "#fff"
+    }
+}

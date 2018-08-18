@@ -1,0 +1,14 @@
+{
+    "pages": [
+        "pages/mainPage/mainPage",
+        "pages/GuessPage/GuessPage",
+        "pages/resultPage/resultPage",
+        "pages/TopListPage/TopListPage"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "看动图猜影视",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff"
+    }
+}

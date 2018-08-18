@@ -1,0 +1,12 @@
+{
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "我的穿搭怎么样？",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundTextStyle": "light"
+    },
+    "pages": [
+        "pages/index/index",
+        "pages/analy/analy"
+    ]
+}

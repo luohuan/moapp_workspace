@@ -1,0 +1,19 @@
+page {-moz-background-size:100% 100%;background-size:100% 100%;background-repeat:no-repeat;background-attachment:fixed;background:url(http://material.motimaster.com/appmaker/qiutianrui/5568.jpg);}
+
+                @-webkit-keyframes ef_1 {
+                  from {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+
+                  50% {
+                    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                    transform: scale3d(1.05, 1.05, 1.05);
+                  }
+
+                  to {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+                }
+        

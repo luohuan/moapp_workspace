@@ -1,0 +1,151 @@
+page {background-attachment:fixed;-moz-background-size:100% 100%;background-repeat:no-repeat;background:url(http://material.mogolane.cn/yuyuan/friendtest/create/ecfadc604f2eb4a077bf70655085c1fe.jpg);background-size:100% 100%;}
+
+    @-webkit-keyframes ef_47
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_47
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_48
+    {
+        0%  {opacity:0}
+        32% {opacity:1}
+        8% {opacity:1}
+        12% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_49
+    {
+        0%  {opacity:0}
+        35% {opacity:1}
+        14% {opacity:1}
+        14% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_48
+    {
+        0%  {opacity:0}
+        32% {opacity:1}
+        8% {opacity:1}
+        12% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_50
+    {
+        0%  {opacity:0}
+        15% {opacity:1}
+        25% {opacity:1}
+        21% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_47
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_49
+    {
+        0%  {opacity:0}
+        35% {opacity:1}
+        14% {opacity:1}
+        14% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_47
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_47
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_50
+    {
+        0%  {opacity:0}
+        15% {opacity:1}
+        25% {opacity:1}
+        21% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+            @-webkit-keyframes ef_57
+            {
+                from {-webkit-transform:translate3d(0,0,0);}
+                to   {-webkit-transform:translate3d(-430rpx,370rpx,0);}
+            }
+        
+
+            @-webkit-keyframes ef_58
+            {
+                from {-webkit-transform:translate3d(0,0,0);}
+                to   {-webkit-transform:translate3d(-710rpx,700rpx,0);}
+            }
+        
+
+            @-webkit-keyframes ef_59
+            {
+                from {-webkit-transform:translate3d(0,0,0);}
+                to   {-webkit-transform:translate3d(-920rpx,650rpx,0);}
+            }
+        
+
+            @-webkit-keyframes ef_60 {
+              from {
+                /*-webkit-transform-origin: center;
+                transform-origin: center;*/
+                -webkit-transform: rotate3d(0, 0, 1, -200deg);
+                transform: rotate3d(0, 0, 1, -200deg);
+                opacity: 0;
+              }
+
+              to {
+                /*-webkit-transform-origin: center;
+                transform-origin: center;*/
+                -webkit-transform: none;
+                transform: none;
+                opacity: 1;
+              }
+            }
+        

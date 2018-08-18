@@ -1,0 +1,11 @@
+{
+    "pages": [
+        "pages/myButtonPage/myButtonPage"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "myButton",
+        "navigationBarTextStyle": "black"
+    }
+}

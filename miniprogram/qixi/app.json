@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/first/first",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "脱单问题"
+    }
+}

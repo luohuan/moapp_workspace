@@ -1,0 +1,38 @@
+{
+    "tabBar": {
+        "selectedColor": "#e03a58",
+        "textColor": "#000000",
+        "position": "bottom",
+        "list": [
+            {
+                "pagePath": "pages/page1/page1",
+                "iconPath": "img/money.png",
+                "selectedIconPath": "img/money1.png",
+                "text": "A"
+            },
+            {
+                "pagePath": "pages/page2/page2",
+                "iconPath": "img/money.png",
+                "selectedIconPath": "img/money1.png",
+                "text": "B"
+            },
+            {
+                "pagePath": "pages/page3/page3",
+                "iconPath": "img/money.png",
+                "selectedIconPath": "img/money1.png",
+                "text": "C"
+            }
+        ]
+    },
+    "pages": [
+        "pages/page1/page1",
+        "pages/page2/page2",
+        "pages/page3/page3"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "abcTabbar",
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black"
+    }
+}

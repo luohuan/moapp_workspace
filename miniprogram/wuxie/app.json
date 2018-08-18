@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/first/first",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ],
+    "window": {
+        "navigationBarTitleText": "灵魂探真",
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff"
+    }
+}

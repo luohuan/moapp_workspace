@@ -1,0 +1,15 @@
+ @-webkit-keyframes ef_15 
+                      { 
+                   0% {left:170rpx;top:130rpx;}  100% {left:170rpx;top:140rpx;} }
+ @-webkit-keyframes ef_16 
+                      { 
+                   0% {left:155rpx;top:135rpx;}  100% {left:155rpx;top:140rpx;} }
+ @-webkit-keyframes ef_17 
+                      { 
+                   0% {left:530rpx;top:145rpx;}  100% {left:535rpx;top:145rpx;} }
+ @-webkit-keyframes ef_18 
+                      { 
+                   0% {left:215rpx;top:440rpx;}  100% {left:225rpx;top:440rpx;} }
+ @-webkit-keyframes ef_19 
+                      { 
+                   0% {left:550rpx;top:440rpx;}  100% {left:550rpx;top:450rpx;} }

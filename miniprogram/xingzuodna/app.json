@@ -1,0 +1,14 @@
+{
+    "window": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "星座DNA",
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black"
+    },
+    "pages": [
+        "pages/first/first",
+        "pages/select/select",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ]
+}

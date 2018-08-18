@@ -1,0 +1,60 @@
+page {background-repeat:no-repeat;background-size:100% 100%;background:url(http://material.motimaster.com/appmaker/menlu/2671.jpg);-moz-background-size:100% 100%;background-attachment:fixed;}
+
+                @-webkit-keyframes ef_3 {
+                  from, 20%, 40%, 60%, 80%, to {
+                    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+                    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+                  }
+
+                  0% {
+                    opacity: 0;
+                    -webkit-transform: scale3d(.3, .3, .3);
+                    transform: scale3d(.3, .3, .3);
+                  }
+
+                  20% {
+                    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+                    transform: scale3d(1.1, 1.1, 1.1);
+                  }
+
+                  40% {
+                    -webkit-transform: scale3d(.9, .9, .9);
+                    transform: scale3d(.9, .9, .9);
+                  }
+
+                  60% {
+                    opacity: 1;
+                    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+                    transform: scale3d(1.03, 1.03, 1.03);
+                  }
+
+                  80% {
+                    -webkit-transform: scale3d(.97, .97, .97);
+                    transform: scale3d(.97, .97, .97);
+                  }
+
+                  to {
+                    opacity: 1;
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+                }
+        
+
+                @-webkit-keyframes ef_4 {
+                  from {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+
+                  50% {
+                    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                    transform: scale3d(1.05, 1.05, 1.05);
+                  }
+
+                  to {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+                }
+        

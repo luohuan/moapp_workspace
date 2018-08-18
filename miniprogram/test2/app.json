@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/prepare/prepare",
+        "pages/index/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "mopic使用方法",
+        "navigationBarTextStyle": "black"
+    }
+}

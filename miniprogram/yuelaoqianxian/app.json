@@ -1,0 +1,13 @@
+{
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "月老牵线",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    },
+    "pages": [
+        "pages/first/first",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ]
+}

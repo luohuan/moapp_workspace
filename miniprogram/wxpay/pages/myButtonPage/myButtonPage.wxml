@@ -1,0 +1,1 @@
+<image src='http://7u2r5e.com2.z0.glb.qiniucdn.com/music_note_big.png' wx:if="{{bgmcontrol==1}}" bindtap="bgmcontrol" class="bgm-control  {{bgmstate[1]==1?'bgmpaused':'bgmrunning'}}" ></image><button class="mo-btn-big " type="primary" catchtap="onButtonTap_x6DX61" style="position:absolute; margin-left:auto; margin-right:auto; left:0rpx; top:50rpx; right:0rpx; " >支付测试</button>

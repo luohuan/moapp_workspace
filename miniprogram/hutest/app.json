@@ -1,0 +1,14 @@
+{
+    "pages": [
+        "pages/begin/begin",
+        "pages/page1/page1",
+        "pages/mainpage/mainpage",
+        "pages/share/share"
+    ],
+    "window": {
+        "navigationBarTitleText": "友情保鲜计",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black"
+    }
+}

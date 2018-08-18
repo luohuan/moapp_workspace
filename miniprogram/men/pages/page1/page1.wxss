@@ -1,0 +1,113 @@
+
+            @-webkit-keyframes ef_1
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_2
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+                @-webkit-keyframes ef_3 {
+                  from {
+                    opacity: 0;
+                    -webkit-transform: scale3d(.3, .3, .3);
+                    transform: scale3d(.3, .3, .3);
+                  }
+
+                  50% {
+                    opacity: 1;
+                  }
+                }
+        
+
+                @-webkit-keyframes ef_4 {
+                  from {
+                    opacity: 0;
+                    -webkit-transform: scale3d(.3, .3, .3);
+                    transform: scale3d(.3, .3, .3);
+                  }
+
+                  50% {
+                    opacity: 1;
+                  }
+                }
+        
+
+            @-webkit-keyframes ef_5
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+ @-webkit-keyframes ef_6 
+                      { 
+                   0% {left:25rpx;top:420rpx;}  100% {left:25rpx;top:418rpx;} }
+
+            @-webkit-keyframes ef_7
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_8
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_9
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_10
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        

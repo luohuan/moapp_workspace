@@ -1,0 +1,13 @@
+{
+    "window": {
+        "navigationBarTitleText": "内外在年龄",
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff"
+    },
+    "pages": [
+        "pages/first/first",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ]
+}

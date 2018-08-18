@@ -1,0 +1,12 @@
+{
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "上传测试",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff"
+    },
+    "pages": [
+        "pages/index/index",
+        "pages/__web_page/web_page"
+    ]
+}

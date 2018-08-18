@@ -1,0 +1,13 @@
+{
+    "window": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "友情保鲜计"
+    },
+    "pages": [
+        "pages/page1/page1",
+        "pages/mainpage/mainpage",
+        "pages/share/share"
+    ]
+}

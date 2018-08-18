@@ -1,0 +1,15 @@
+{
+    "window": {
+        "navigationBarBackgroundColor": "#eeeeee",
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "你懂我吗"
+    },
+    "pages": [
+        "pages/mainpage/mainpage",
+        "pages/questpage/questpage",
+        "pages/resultpage/resultpage",
+        "pages/invitpage/invitpage",
+        "pages/answerpage/answerpage"
+    ]
+}

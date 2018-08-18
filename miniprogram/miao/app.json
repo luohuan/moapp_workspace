@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/first/first",
+        "pages/paper/paper",
+        "pages/pageX/pageX"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "我的人生比重",
+        "navigationBarTextStyle": "black"
+    }
+}

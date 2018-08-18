@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "numcounter": "../../components/numcounter/numcounter"
+    }
+}

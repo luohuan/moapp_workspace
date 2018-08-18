@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/entrance/entrance",
+        "pages/match/match",
+        "pages/share/share"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "姓名契合度",
+        "navigationBarTextStyle": "black"
+    }
+}

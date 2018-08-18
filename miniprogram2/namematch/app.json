@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/entrance/entrance",
+        "pages/match/match",
+        "pages/share/share"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "好友名字匹配",
+        "navigationBarTextStyle": "black"
+    }
+}

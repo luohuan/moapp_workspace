@@ -1,0 +1,18 @@
+{
+    "pages": [
+        "pages/page_analyze/page_analyze",
+        "pages/page1/page1",
+        "pages/page_gate/page_gate",
+        "pages/page_sign/page_sign",
+        "pages/page_detail/page_detail",
+        "pages/page4/page4",
+        "pages/page_check/page_check",
+        "pages/page_test/page_test"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#2f172d",
+        "navigationBarTitleText": "下一世",
+        "navigationBarTextStyle": "white"
+    }
+}
