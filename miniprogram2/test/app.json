@@ -1,12 +1,12 @@
 {
     "pages": [
-        "pages/index/index",
+        "pages/share/share",
         "pages/__web_page/web_page"
     ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "swiper",
+        "navigationBarTitleText": "二维码示例",
         "navigationBarTextStyle": "black"
     }
 }

@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/listPage/listPage",
+        "pages/__web_page/web_page"
+    ],
+    "window": {
+        "navigationBarTitleText": "娱乐盒子",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    }
+}

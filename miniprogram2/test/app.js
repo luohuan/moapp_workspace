@@ -4,7 +4,7 @@ App({
     onLaunch: function(options) {
             this.globalData.scene = options.scene || 0;
             moapp.appBgmAllInOne(this);
-            console.log(`launch moapp, appid:wx263b9c72fc87b39c, env:${this.globalData.env}, signature:${this.globalData.signature}`);
+            console.log(`launch moapp, appid:wx08fe2b1ff0c169f2, env:${this.globalData.env}, signature:${this.globalData.signature}`);
             var self = this;
             /*wx.getSystemInfo({
               success: function(res) {
@@ -33,7 +33,7 @@ App({
     globalData: {
             uiBaseAttr4Server: ['hidden', 'color', 'width', 'height', 'background', 'backgroundColor', 'left', 'top', 'right', 'bottom', 'fontSize', 'fontWeight', 'opacity', 'text'],
             env: 'dev',
-            signature: 'FA89D408B60465C37A3113A3EE094687B43825E0',
+            signature: 'E9B55F8E77C475ECE54517014D72AB0BB5D92479',
             domain: 'https://dev.mozigu.net/moapp',
             upload: 'https://dev.mozigu.net/upload/image',
         },

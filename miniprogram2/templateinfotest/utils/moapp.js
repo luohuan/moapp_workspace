@@ -1,6 +1,7 @@
 const cmd_handler = require("./cmd_handler.js");
 
 module.exports = {
+  sessionVersion: 'v1.1',    // session版本
   requestingSession: false,   // 标识是否正在请求session，避免重复
   requestCloudFunction: function(page_obj, appid, module_name, func_name, params) {
     var _this = this;
@@ -38,7 +39,9 @@ module.exports = {
             })
           } else {
             if(res.data.ret == 0) {
+
               cmd_handler.execute(page_obj, appid, module_name, params, res.data.data, this);
+
 
               params.data = res.data.data;
               if ('resolve' in res.data && (res.data.resolve === false)) {
@@ -250,14 +253,13 @@ module.exports = {
       })
   },
 
-
-  checkSaveImageAuth: () => {
+  checkAuthSetting: (scope, open_tips) => {
     return new Promise( (resolve, reject) => {
       let setting = wx.getSetting({
         success: (res) => {
           var auth = res.authSetting;        
           console.log(auth);
-          const authKey = 'scope.writePhotosAlbum';
+          const authKey = scope;
 
           if (authKey in auth && auth[authKey]) {
             resolve();              
@@ -265,13 +267,13 @@ module.exports = {
             if (authKey in auth) {
               wx.showModal({
                 title: '提示',
-                content: '您现在不允许小程序访问手机相册，不能保存到朋友圈，请打开"保存到相册"',
+                content: open_tips,
                 success: (res) => {
                   if (res.confirm) {
                     wx.openSetting({
                       success: (res) => {
                         console.log(res);
-                        if ('scope.writePhotosAlbum' in res.authSetting && res.authSetting['scope.writePhotosAlbum']) {
+                        if (scope in res.authSetting && res.authSetting[scope]) {
                             resolve();
                         } else {
                           reject();
@@ -315,57 +317,60 @@ module.exports = {
     evt = evt || {};
 
     return new Promise((resolve, reject) => {
-        _this.checkSaveImageAuth().then(() => {
-            wx.showLoading({
-                'title': '保存中'
-            });
-            wx.downloadFile({
-                url: url,
+      _this.checkAuthSetting('scope.writePhotosAlbum', '您现在不允许小程序访问手机相册，不能保存到朋友圈，请打开"保存到相册"').then(() => {
+        var urls = url.split(",")
+
+        for (var i=0; i<urls.length; i++) {
+
+
+          wx.showLoading({
+            'title': '保存中'
+          });
+          wx.downloadFile({
+            url: urls[i],
+            success: function(res) {
+              wx.saveImageToPhotosAlbum({
+                filePath: res.tempFilePath,
                 success: function(res) {
-                    wx.saveImageToPhotosAlbum({
-                        filePath: res.tempFilePath,
-                        success: function(res) {
-                            wx.hideLoading();
-                            /*wx.showToast({
-                                title: "图片保存成功",
-                                icon: 'success',
-                                duration: 1500
-                            });*/
-                            _this.showAlert( '保存成功', '已保存到相册，快去分享吧~');
-                            resolve(evt);
-                        },
-                        fail: function(res) {
-                            wx.showToast({
-                                title: "图片保存失败",
-                                icon: 'none',
-                                duration: 1500
-                            });
-                            reject(evt); // 后端调用saveImage请忽略此处报错
-                        }
-                    }); // wx.saveImageToPhotosAlbum
+                  wx.hideLoading();
+                  _this.showAlert( '保存成功', '已保存到相册，快去分享吧~');
+                  resolve(evt);
                 },
                 fail: function(res) {
-                    wx.showToast({
-                        title: "图片下载失败",
-                        icon: 'none',
-                        duration: 1500
-                    });
-                    reject(evt);
+                  wx.showToast({
+                    title: "图片保存失败",
+                    icon: 'none',
+                    duration: 1500
+                  });
+                  reject(evt); // 后端调用saveImage请忽略此处报错
                 }
-            }); // wx.downloadFile 
-        },
-        () => {
-          wx.showToast({
-              title: "图片保存失败",
-              icon: 'none',
-              duration: 1500
-          });
-          reject(evt);
-        }
-      );
-    });
+              }); // wx.saveImageToPhotosAlbum
+            },
+            fail: function(res) {
+              wx.showToast({
+                title: "图片下载失败",
+                icon: 'none',
+                duration: 1500
+              });
+              reject(evt);
+            },
+          }); // wx.downloadFile 
+        };
+
+      },
+
+      () => {
+        wx.showToast({
+          title: "图片保存失败",
+          icon: 'none',
+          duration: 1500
+        });
+        reject(evt);
+      }
+    );});
   },
   wxLogin: function(resolve, reject) {
+    console.log('re login');
     wx.login({
       success: function(res) {
         if (res.code) {
@@ -387,8 +392,8 @@ module.exports = {
   getWxCode: function() {
     var self = this;
     return new Promise((resolve, reject) => {      
-      var openid = wx.getStorageSync('openid');
-      if(openid) {
+      var openid = self.getOpenId();
+      if(openid && self.sessionVersion == wx.getStorageSync('version')) {
         wx.checkSession({
           success: function() {       
             resolve({
@@ -428,7 +433,8 @@ module.exports = {
                     userInfo: {},
                     code: data['code'],
                     openid: data['openid'],
-                    uiBaseAttr: app.globalData.uiBaseAttr4Server
+                    uiBaseAttr: app.globalData.uiBaseAttr4Server,
+                    sysInfo: wx.getSystemInfoSync() || {}
                   },
                   method: 'POST',
                   header: {
@@ -442,6 +448,10 @@ module.exports = {
                       wx.setStorage({
                         'key': 'openid',
                         'data': res.data.data['openid']
+                      });
+                      wx.setStorage({
+                        'key': 'version',
+                        'data': self.sessionVersion
                       });
                       
                       console.log(`get session: ${app.globalData.sessionID}, openid:${res.data.data['openid']}`);
@@ -510,8 +520,8 @@ module.exports = {
       self.setData({
         bgmcontrol: app.bgm.control || false,
         controlStyle: app.bgm.controlStyle || false,
-        bgmstate:[app.bgm.src == ("" || "http://none/")?0:1, + app.bgm.paused],
-        soundEffectState:[app.soundEffect.src == ("" || "http://none/")?0:1, + app.soundEffect.paused]
+        bgmstate:[app.bgm.src == ("" || "http://null")?0:1, + app.bgm.paused],
+        soundEffectState:[app.soundEffect.src == ("" || "http://null")?0:1, + app.soundEffect.paused]
       }); // bgmstate的两个参数分别是：是否存在bgm, bgm是否暂停播放    
     }
   },

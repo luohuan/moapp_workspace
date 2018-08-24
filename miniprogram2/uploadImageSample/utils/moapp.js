@@ -1,5 +1,7 @@
-const util = require("./util.js");
+const cmd_handler = require("./cmd_handler.js");
+
 module.exports = {
+  sessionVersion: 'v1.1',    // session版本
   requestingSession: false,   // 标识是否正在请求session，避免重复
   requestCloudFunction: function(page_obj, appid, module_name, func_name, params) {
     var _this = this;
@@ -37,288 +39,9 @@ module.exports = {
             })
           } else {
             if(res.data.ret == 0) {
-              var data = {};
-              var serverData = {};
 
-              for(var i in res.data.data) {
-                var item = res.data.data[i];
-                var cmd = item.cmd;
-                var cmd_data = item.data;
+              cmd_handler.execute(page_obj, appid, module_name, params, res.data.data, this);
 
-                switch(cmd) {
-                  case 'setTitle':
-                    _this.setTitle(cmd_data);                    
-                    break;
-                  case 'setAttr': //id, key, value
-                    data[_this.genObjectDataName(cmd_data.id, cmd_data.key)] = cmd_data.value;
-                    break;
-                  case 'goto':  // options
-                    let url_params = util.jsonToUrlParams(cmd_data.options || {});                    
-                    
-                    wx.navigateTo({
-                      url: `../${cmd_data.page_name}/${cmd_data.page_name}?${url_params}`
-                    });
-                    break;
-                  case 'redirectTo':  // options
-                    let url_reidrect_params = util.jsonToUrlParams(cmd_data.options || {});                    
-                    
-                    wx.redirectTo({
-                      url: `../${cmd_data.page_name}/${cmd_data.page_name}?${url_reidrect_params}`
-                    });
-                    break;
-                  case 'switchTab':
-                    wx.switchTab({
-                      url: `../${cmd_data.page_name}/${cmd_data.page_name}`
-                    })
-                  case 'goBack':
-                    wx.navigateBack({
-                        delta:1
-                    });
-                    break;
-                  case 'setNavibarColor':
-                    wx.setNavigationBarColor({
-                      frontColor: cmd_data.frontColor == '#000000' ? '#000000' : '#ffffff',   //小程序的frontColor只能设置#ffffff或者#000000
-                      backgroundColor: cmd_data.backgroundColor || '#ffffff'
-                    });
-                    break;
-                  case 'showAlert':
-                    _this.showAlert(cmd_data.title, cmd_data.content);
-                    break;
-                  case 'showTips':
-                    wx.showToast({
-                      title: cmd_data.text,
-                      icon: 'success',
-                      image:cmd_data.image,
-                      duration: cmd_data.duration
-                    })
-                    break;
-                  case 'playBGM':
-                  if (wx.createInnerAudioContext) {
-                      var t = Date.now();
-                      app.bgm.src = cmd_data.src+`#${t}`;
-                      app.bgm.control = cmd_data.control
-                      // app.bgm.control = false
-                      app.bgm.controlStyle = "bgm-" + cmd_data.controlStyle
-                      app.bgm.title = 'bgm'
-                      app.bgm.autoplay = cmd_data.autoplay
-                      app.bgm.loop = cmd_data.loop
-                      page_obj.setData({
-                          bgmcontrol :+ app.bgm.control,
-                          bgmstate: [1, + ! app.bgm.autoplay],
-                          controlStyle: app.bgm.controlStyle
-                      })
-                    }
-                    break;
-                  case 'pauseBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.pause();
-                      page_obj.setData({bgmstate: [1, 1]})
-                    }
-                    break;
-                  case 'resumeBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.play();
-                      page_obj.setData({bgmstate: [1, 0]})
-                    }
-                    break;
-                  // getBackgroundAudioManager 的 stop 功能等同于之前的 close
-                  // case 'stopBGM':
-                  //   if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                  //     app.bgm.stop();
-                  //     page_obj.setData({
-                  //         bgmstate: [1, 1]
-                  //     }) 
-                  //   }
-                  //   break;
-                  case 'closeBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.src = "http://null"
-                      app.bgm.stop();
-                      page_obj.setData({
-                          bgmcontrol: 0,
-                          bgmstate: [0, 1]
-                      }) 
-                    }
-                    break;
-                  case 'gotoMiniProgram':
-                    wx.navigateToMiniProgram({
-                      appId: cmd_data.appid,
-                      path: cmd_data.path,
-                      success: function(res) {
-                        console.log('跳转小程序成功')
-                      },fail:function(res){
-                        console.log('跳转小程序失败，错误信息:');
-                        console.log(res);
-                      }
-                    })
-                    break;
-                  case 'playAudio':
-                    if (wx.createInnerAudioContext) {
-                      var t = Date.now();
-                      app.soundEffect.src = cmd_data.src+`#${t}`
-                      app.soundEffect.autoplay = true
-                      page_obj.setData({
-                        soundEffectState:[1, 0]
-                      })
-                    }
-                    break;
-                  case 'setData':
-                    serverData[cmd_data.key] = cmd_data.value;
-                    break;
-                  case 'saveImage':
-                    _this.saveImage(null, cmd_data).then().catch(() => {});
-                    break;
-                  case 'appendData':
-                    let key = _this.genObjectDataName(cmd_data.id, 'data');
-                    let itemData = page_obj.data[key];
-
-                    itemData.push(cmd_data.value);
-                    data[key] = itemData;
-                    break;
-                  case 'console':
-                    console.log(cmd_data.content);
-                    break;
-                  case 'previewImage':
-                    console.log('previewImage')
-                    wx.previewImage({
-                      'urls':cmd_data
-                    })
-                    break;
-                  case 'uploadImage':
-                    console.log('uploadImage')
-                    console.log(cmd_data)
-                    wx.chooseImage({
-                      count: cmd_data.count,
-                      sizeType: ['original', 'compressed'],
-                      sourceType: cmd_data.sourceType,
-                      sizeType: cmd_data.sizeType,
-                      success: function (res) { 
-                        wx.showLoading({
-                          title: '上传中0/' + res.tempFilePaths.length,
-                        })
-                        var tempFilePaths = res.tempFilePaths
-                        console.log(tempFilePaths)
-                        var len_file = tempFilePaths.length
-                        var up_success = 0;
-                        var success_url = []
-                        var up_fail = 0
-                        var total_up = 0
-                        for (var i = 0; i < len_file; i++) {
-                          wx.uploadFile({
-                            url: `${app.globalData.upload}`,
-                            filePath: tempFilePaths[i],
-                            name: 'file',
-                            formData: {
-                              'appid': appid,
-                            },
-                            success: function (res) {
-                              var data = JSON.parse(res.data)
-                              console.log(data)
-                              
-                              if (res.statusCode == 200) {
-                                up_success += 1;
-                                total_up += 1;
-                                success_url.push(data.url)
-                                wx.showLoading({
-                                  title: '上传中' + up_success + '/' + tempFilePaths.length,
-                                })
-                              } else {
-                                total_up += 1;
-                                up_fail += 1
-                                // wx.hideLoading();
-                                // wx.showToast({
-                                //   title: '上传完成',
-                                // })
-                              }
-                            },
-                            fail:function(){
-                              total_up += 1;
-                              up_fail += 1
-                            },
-                            complete:function(){
-                              if (total_up == len_file){
-                                console.log('params')
-                                console.log(params)
-                                params.params = {}
-                                params.params.success_url = success_url
-                                //console.log(evt)
-                                //resolve(evt)
-                                 _this.requestCloudFunction(page_obj, appid, module_name, cmd_data.success.function, params);
-                                //resolve(success_url)
-                                wx.hideLoading()
-                                wx.showToast({
-                                  title: '上传完成',
-                                })
-                              }
-                            }
-                          })
-                        }
-                      },
-                      fail:function(){
-                        console.log('选择图片失败')
-                        _this.requestCloudFunction(page_obj, appid, module_name, cmd_data.fail.function, params);
-                      }
-                    })
-                    break;
-                  case 'wxpay': // 微信支付
-                    if (cmd_data.params) {
-                      var wxpay_data = cmd_data;
-                      let payParam = wxpay_data.params;
-                      wx.requestPayment({
-                          'timeStamp': payParam.timeStamp,
-                          'nonceStr': payParam.nonceStr,
-                          'package': payParam.package,
-                          'signType': payParam.signType,
-                          'paySign': payParam.paySign,
-                          'success': function (res) {                              
-                              _this.requestCloudFunction(page_obj, appid, module_name, wxpay_data.success.function, params);
-                          },
-                          'fail': function (res) {
-                              console.log(res);
-                              let cancel = res.errMsg.indexOf('cancel') > -1;
-                              if (params.params) {
-                                params.params.wxpayCancel = cancel;
-                              } else {
-                                params.params = {
-                                  wxpayCancel: cancel
-                                }
-                              }
-                              _this.requestCloudFunction(page_obj, appid, module_name, wxpay_data.fail.function, params);
-                          }
-                      })
-                    } else {
-                      if (cmd_data.fail) {
-                          // (page_obj, appid, module_name, func_name, params)
-                          _this.requestCloudFunction(page_obj, appid, module_name, cmd_data.fail.function, params);
-                      }
-
-                      console.error('invalid wxpay params:', cmd_data);
-                    }
-                    break;
-                  case 'openWeb':
-                    wx.navigateTo({
-                       url: '../__web_page/web_page?url=' + cmd_data.url
-                    });
-                    break;
-                  default:
-                    console.log('invalid server cmd:' + cmd)
-                    break;
-                }
-              }
-
-              if (JSON.stringify(serverData) != "{}") {
-                var oldData = page_obj.data.serverData || {};
-
-                for (var k in serverData) {
-                  oldData[k] = serverData[k];
-                }
-
-                data['serverData'] = oldData;
-              }
-              
-              if (JSON.stringify(data)!="{}" && page_obj) {
-                page_obj.setData(data);                
-              }
 
               params.data = res.data.data;
               if ('resolve' in res.data && (res.data.resolve === false)) {
@@ -341,10 +64,8 @@ module.exports = {
               } catch (err) {
                 console.error(err);
               }
-              
 
               wx.hideLoading();
-
               if(app.globalData.env == 'release') {
                 _this.showAlert( '错误提示', `出错了，错误码:${res.data.ret}`);
               } else {
@@ -379,7 +100,6 @@ module.exports = {
     const app = getApp(); 
     var sessionID = app.globalData.sessionID
     if(!sessionID){
-      //console.log('没有sessionId 未登陆 不报formId')
       return
     }
     wx.request({
@@ -533,14 +253,13 @@ module.exports = {
       })
   },
 
-
-  checkSaveImageAuth: () => {
+  checkAuthSetting: (scope, open_tips) => {
     return new Promise( (resolve, reject) => {
       let setting = wx.getSetting({
         success: (res) => {
           var auth = res.authSetting;        
           console.log(auth);
-          const authKey = 'scope.writePhotosAlbum';
+          const authKey = scope;
 
           if (authKey in auth && auth[authKey]) {
             resolve();              
@@ -548,13 +267,13 @@ module.exports = {
             if (authKey in auth) {
               wx.showModal({
                 title: '提示',
-                content: '您现在不允许小程序访问手机相册，不能保存到朋友圈，请打开"保存到相册"',
+                content: open_tips,
                 success: (res) => {
                   if (res.confirm) {
                     wx.openSetting({
                       success: (res) => {
                         console.log(res);
-                        if ('scope.writePhotosAlbum' in res.authSetting && res.authSetting['scope.writePhotosAlbum']) {
+                        if (scope in res.authSetting && res.authSetting[scope]) {
                             resolve();
                         } else {
                           reject();
@@ -598,7 +317,7 @@ module.exports = {
     evt = evt || {};
 
     return new Promise((resolve, reject) => {
-        _this.checkSaveImageAuth().then(() => {
+        _this.checkAuthSetting('scope.writePhotosAlbum', '您现在不允许小程序访问手机相册，不能保存到朋友圈，请打开"保存到相册"').then(() => {
             wx.showLoading({
                 'title': '保存中'
             });
@@ -649,6 +368,7 @@ module.exports = {
     });
   },
   wxLogin: function(resolve, reject) {
+    console.log('re login');
     wx.login({
       success: function(res) {
         if (res.code) {
@@ -670,8 +390,8 @@ module.exports = {
   getWxCode: function() {
     var self = this;
     return new Promise((resolve, reject) => {      
-      var openid = wx.getStorageSync('openid');
-      if(openid) {
+      var openid = self.getOpenId();
+      if(openid && self.sessionVersion == wx.getStorageSync('version')) {
         wx.checkSession({
           success: function() {       
             resolve({
@@ -711,7 +431,8 @@ module.exports = {
                     userInfo: {},
                     code: data['code'],
                     openid: data['openid'],
-                    uiBaseAttr: app.globalData.uiBaseAttr4Server
+                    uiBaseAttr: app.globalData.uiBaseAttr4Server,
+                    sysInfo: wx.getSystemInfoSync() || {}
                   },
                   method: 'POST',
                   header: {
@@ -725,6 +446,10 @@ module.exports = {
                       wx.setStorage({
                         'key': 'openid',
                         'data': res.data.data['openid']
+                      });
+                      wx.setStorage({
+                        'key': 'version',
+                        'data': self.sessionVersion
                       });
                       
                       console.log(`get session: ${app.globalData.sessionID}, openid:${res.data.data['openid']}`);
@@ -793,8 +518,8 @@ module.exports = {
       self.setData({
         bgmcontrol: app.bgm.control || false,
         controlStyle: app.bgm.controlStyle || false,
-        bgmstate:[app.bgm.src == ("" || "http://none/")?0:1, + app.bgm.paused],
-        soundEffectState:[app.soundEffect.src == ("" || "http://none/")?0:1, + app.soundEffect.paused]
+        bgmstate:[app.bgm.src == ("" || "http://null")?0:1, + app.bgm.paused],
+        soundEffectState:[app.soundEffect.src == ("" || "http://null")?0:1, + app.soundEffect.paused]
       }); // bgmstate的两个参数分别是：是否存在bgm, bgm是否暂停播放    
     }
   },

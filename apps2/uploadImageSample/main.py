@@ -3,7 +3,7 @@ def main():
         index()
 
 
-class index(Page):
+class index(Page):  
     naviBarTitle = '入口页面'
     def UI():
         with Grid(name='grid1', pos=['center', 20], size=[710, 210], column=3):     
@@ -13,7 +13,7 @@ class index(Page):
             onTap=test)
 
     def onInit():
-        mo.console('你想干啥呀你---上传图片例子')
+        mo.console('初始化页面')
     
     def test():
         mo.uploadImage( 9, uploadSuccess, uploadFail)
@@ -23,7 +23,9 @@ class index(Page):
         mo.console('失败了不可能的')
 
     def uploadSuccess():
-        urls = params.success_url
+        urls = params.urls
+        mo.console(urls)
+        mo.console(params.imagesInfo)
         page.grid1.data = []
         for url in urls:
             page.grid1.data.append({

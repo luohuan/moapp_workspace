@@ -1,0 +1,1 @@
+Page({data:{url:""},onLoad:function(a){this.setData({url:unescape(a.url)})},onShareAppMessage:function(){}});

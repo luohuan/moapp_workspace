@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.91",
 	"appid": "wx08fe2b1ff0c169f2",
-	"projectname": "%E5%A5%BD%E5%8F%8B%E5%90%8D%E5%AD%97%E5%8C%B9%E9%85%8D",
+	"projectname": "好友名字匹配",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

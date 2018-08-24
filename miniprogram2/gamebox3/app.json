@@ -1,0 +1,12 @@
+{
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "游戏盒子",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    },
+    "pages": [
+        "pages/MainPage/MainPage",
+        "pages/__web_page/web_page"
+    ]
+}

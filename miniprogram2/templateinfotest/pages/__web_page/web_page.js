@@ -11,7 +11,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      url:options.url
+      url: unescape(options.url)
     });
   },
 

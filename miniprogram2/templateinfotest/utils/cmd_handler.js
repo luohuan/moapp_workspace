@@ -79,8 +79,7 @@ module.exports = {
     },
     __wxpay(ctx, cmd_data, page_data) {
         if (cmd_data.params) {
-          var wxpay_data = cmd_data;
-          let payParam = wxpay_data.params;
+          let payParam = cmd_data.params;
           wx.requestPayment({
               'timeStamp': payParam.timeStamp,
               'nonceStr': payParam.nonceStr,
@@ -88,7 +87,7 @@ module.exports = {
               'signType': payParam.signType,
               'paySign': payParam.paySign,
               'success': function (res) {                              
-                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, wxpay_data.success.function, ctx.params);
+                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.success.function, ctx.params);
               },
               'fail': function (res) {
                   console.log(res);
@@ -100,7 +99,7 @@ module.exports = {
                       wxpayCancel: cancel
                     }
                   }
-                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, wxpay_data.fail.function, ctx.params);
+                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
               }
           })
         } else {
@@ -110,10 +109,24 @@ module.exports = {
 
           console.error('invalid wxpay params:', cmd_data);
         }
-    },    
+    },
     __openWeb(ctx, cmd_data, page_data) {
+        let url = cmd_data.url;
+        let openid = ctx.moapp.getOpenId();
+        const app = getApp(); 
+        var sessionID = app.globalData.sessionID;
+        let domain = encodeURIComponent(`${app.globalData.domain}/cloud`);
+
+        let ext_info = `openid=${openid}&sessionid=${sessionID}&interface=${domain}`;
+
+        if (url.indexOf("?")>-1) {
+          url = url + '&' + ext_info;
+        } else {
+          url = url + '?' + ext_info;
+        }
+        console.log(url);
         wx.navigateTo({
-           url: '../__web_page/web_page?url=' + cmd_data.url
+           url: '../__web_page/web_page?url=' + encodeURIComponent(url)
         });
     },
     __makePhoneCall(ctx, cmd_data, page_data) {
@@ -122,20 +135,93 @@ module.exports = {
         });
     },
     __getWeRunData(ctx, cmd_data, page_data) {
-        wx.getWeRunData({
-            success(res) {
-                ctx.params.encrypted_data = {
-                    'type': 'weRunData',
-                    'data': res.encryptedData,
-                    'iv': res.iv
+        ctx.moapp.checkAuthSetting('scope.werun', '小程序需要读取您的微信运动数据，请打开"微信运动步数"').then(() => {
+          wx.getWeRunData({
+              success(res) {
+                  ctx.params.encrypted_data = {
+                      'type': 'weRunData',
+                      'data': res.encryptedData,
+                      'iv': res.iv
+                  }
+                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.success.function, ctx.params);
+              },
+              fail(res) {
+                  console.error('get wx run data fail!', res);
+                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
+              }
+          });
+        },
+        err => {
+          ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
+        }
+      );
+    },
+    __uploadImage(ctx, cmd_data, page_data){
+      console.log('uploadImage')
+      var upcmd_data = cmd_data
+      wx.chooseImage({
+        count: upcmd_data.count,
+        sizeType: ['original', 'compressed'],
+        sourceType: upcmd_data.sourceType,
+        sizeType: upcmd_data.sizeType,
+        success: function (res) { 
+          wx.showLoading({
+            title: '上传中0/' + res.tempFilePaths.length,
+          })
+          var tempFilePaths = res.tempFilePaths
+          var len_file = tempFilePaths.length
+          var up_success = 0;
+          var success_url = []
+          var up_fail = 0
+          var total_up = 0
+          const app = getApp();
+          for (var i = 0; i < len_file; i++) {
+            wx.uploadFile({
+              url: `${app.globalData.upload}`,
+              filePath: tempFilePaths[i],
+              name: 'file',
+              formData: {
+                'appid': ctx.appid,
+              },
+              success: function (res) {
+                var data = JSON.parse(res.data)
+                if (res.statusCode == 200) {
+                  up_success += 1;
+                  total_up += 1;
+                  success_url.push(data.url)
+                  wx.showLoading({
+                    title: '上传中' + up_success + '/' + tempFilePaths.length,
+                  })
+                } else {
+                  total_up += 1;
+                  up_fail += 1
                 }
-                ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.success.function, ctx.params);
-            },
-            fail(res) {
-                console.error('get wx run data fail!', res);
-                ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
-            }
-        });
+              },
+              fail:function(){
+                total_up += 1;
+                up_fail += 1
+              },
+              complete:function(){
+                if (total_up == len_file){
+                  console.log(ctx.params)
+                  ctx.params.params = {}
+                  ctx.params.params.urls = success_url
+                  ctx.params.params.images = success_url
+                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, upcmd_data.success.function, ctx.params);
+                  wx.hideLoading()
+                  wx.showToast({
+                    title: '上传完成',
+                  })
+                }
+              }
+            })
+          }
+        },
+        fail:function(){
+          console.log('选择图片失败')
+          ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
+        }
+      })
     },
     execute:  function(page_obj, appid, module_name, params, res_data, moapp_obj) {
         const app = getApp();
@@ -146,10 +232,10 @@ module.exports = {
         for(var i in res_data) {
             var item = res_data[i];
             var cmd = item.cmd;
-            var cmd_data = item.data;
-
+            
             var fn_name = '__' + cmd;
             if (fn_name in this) {
+                var cmd_data = item.data;
                 this[fn_name]({
                     'page_obj': page_obj,
                     'appid': appid,
@@ -158,6 +244,7 @@ module.exports = {
                     'params': params
                 }, cmd_data, data);
             } else {
+                var cmd_data = item.data;
                 switch(cmd) {
                   case 'playBGM':
                     if (wx.createInnerAudioContext) {
@@ -211,83 +298,6 @@ module.exports = {
                   case 'setData':
                     serverData[cmd_data.key] = cmd_data.value;
                     break;              
-                  
-                  case 'uploadImage':
-                    console.log('uploadImage')
-                    console.log(cmd_data)
-                    wx.chooseImage({
-                      count: cmd_data.count,
-                      sizeType: ['original', 'compressed'],
-                      sourceType: cmd_data.sourceType,
-                      sizeType: cmd_data.sizeType,
-                      success: function (res) { 
-                        wx.showLoading({
-                          title: '上传中0/' + res.tempFilePaths.length,
-                        })
-                        var tempFilePaths = res.tempFilePaths
-                        console.log(tempFilePaths)
-                        var len_file = tempFilePaths.length
-                        var up_success = 0;
-                        var success_url = []
-                        var up_fail = 0
-                        var total_up = 0
-                        for (var i = 0; i < len_file; i++) {
-                          wx.uploadFile({
-                            url: `${app.globalData.upload}`,
-                            filePath: tempFilePaths[i],
-                            name: 'file',
-                            formData: {
-                              'appid': appid,
-                            },
-                            success: function (res) {
-                              var data = JSON.parse(res.data)
-                              console.log(data)
-                              
-                              if (res.statusCode == 200) {
-                                up_success += 1;
-                                total_up += 1;
-                                success_url.push(data.url)
-                                wx.showLoading({
-                                  title: '上传中' + up_success + '/' + tempFilePaths.length,
-                                })
-                              } else {
-                                total_up += 1;
-                                up_fail += 1
-                                // wx.hideLoading();
-                                // wx.showToast({
-                                //   title: '上传完成',
-                                // })
-                              }
-                            },
-                            fail:function(){
-                              total_up += 1;
-                              up_fail += 1
-                            },
-                            complete:function(){
-                              if (total_up == len_file){
-                                console.log('params')
-                                console.log(params)
-                                params.params = {}
-                                params.params.success_url = success_url
-                                //console.log(evt)
-                                //resolve(evt)
-                                 _this.requestCloudFunction(page_obj, appid, module_name, cmd_data.success.function, params);
-                                //resolve(success_url)
-                                wx.hideLoading()
-                                wx.showToast({
-                                  title: '上传完成',
-                                })
-                              }
-                            }
-                          })
-                        }
-                      },
-                      fail:function(){
-                        console.log('选择图片失败')
-                        _this.requestCloudFunction(page_obj, appid, module_name, cmd_data.fail.function, params);
-                      }
-                    })
-                    break;
                   default:
                     console.log('invalid server cmd:' + cmd)
                     break;

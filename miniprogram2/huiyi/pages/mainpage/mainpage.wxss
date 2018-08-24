@@ -1,0 +1,171 @@
+page {background:#2A2C3B;background-size:100% 100%;background-attachment:fixed;-moz-background-size:100% 100%;background-repeat:no-repeat;}
+
+            @-webkit-keyframes ef_29{
+                from{-webkit-transform: rotate(0deg);}
+                to{-webkit-transform: rotate(360deg);}
+            }
+            
+
+            @-webkit-keyframes ef_30
+            {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_31
+            {
+                from {
+                    opacity: 1;
+                }
+
+                to {
+                    opacity: 0.5;
+                }
+            }
+        
+
+            @-webkit-keyframes ef_32
+            {
+                from {
+                    opacity: 1;
+                }
+
+                to {
+                    opacity: 0.5;
+                }
+            }
+        
+
+    @-webkit-keyframes ef_33
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_33
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_34
+    {
+        0%  {opacity:0}
+        32% {opacity:1}
+        8% {opacity:1}
+        12% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_35
+    {
+        0%  {opacity:0}
+        35% {opacity:1}
+        14% {opacity:1}
+        14% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_34
+    {
+        0%  {opacity:0}
+        32% {opacity:1}
+        8% {opacity:1}
+        12% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_36
+    {
+        0%  {opacity:0}
+        15% {opacity:1}
+        25% {opacity:1}
+        21% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_33
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_35
+    {
+        0%  {opacity:0}
+        35% {opacity:1}
+        14% {opacity:1}
+        14% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_33
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+    @-webkit-keyframes ef_33
+    {
+        0%  {opacity:0}
+        25% {opacity:1}
+        12% {opacity:1}
+        25% {opacity:0}
+        100% {opacity:0}
+    }
+
+
+            @-webkit-keyframes ef_37 {
+              from {
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+                visibility: visible;
+              }
+
+              to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+              }
+    }
+        
+
+            @-webkit-keyframes ef_37 {
+              from {
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+                visibility: visible;
+              }
+
+              to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+              }
+    }
+        

@@ -2,6 +2,50 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 const qiniuUploader = require("../../utils/qiniuUploader")
 Page({
+    onButtonTap_xpJEoi:  function(evt) {
+                var self = this;
+                ;
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
+                Promise.resolve(evt_data).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'main', 'index.test', evt);
+            }
+            ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
+            }
+            ,
+    data: {
+    "objects": [
+        "grid1"
+    ],
+    "__grid1_column": 3,
+    "__grid1_columnStr": "1fr 1fr 1fr",
+    "__grid1_data": "",
+    "__grid1_width": "710rpx",
+    "__grid1_height": "210rpx",
+    "__grid1_left": "0rpx",
+    "__grid1_top": "20rpx",
+    "__grid1_right": "0rpx"
+},
+    onReady:  function () {
+                    var self = this;
+                    var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, {});
+
+                    Promise.resolve(evt_data).then( function(evt) {
+            wx.showLoading({
+              title: `加载中...`,
+              mask: true
+            });
+
+            return evt;
+        }
+        ).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'main', 'index.onInit', evt);
+            }
+            ).then( function(evt) {
+            wx.hideLoading();
+            return evt
+        }).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
+                }
+            ,
     onShow:  function (opt) {
                     var self = this;
                     var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, {});
@@ -11,16 +55,6 @@ Page({
         }
         ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
                 }
-            ,
-    onButtonTap_GWCcvW:  function(evt) {
-                var self = this;
-                ;
-                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
-                Promise.resolve(evt_data).then( function(evt) {
-                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'main', 'index.test', evt);
-            }
-            ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-            }
             ,
     onShareAppMessage: function(opt) {
                     var self = this;
@@ -75,9 +109,6 @@ Page({
 
                     return shareInfo;                
                 },
-    bgmcontrol: function(){
-            moapp.bgmControl(this, app)                
-        },
     onLoad: function(options) {
             for (let k in options){
                 if(typeof(options[k]) == 'string') {
@@ -90,38 +121,7 @@ Page({
             });           
             wx.showShareMenu({withShareTicket: true});
         },
-    data: {
-    "__grid1_data": "",
-    "__grid1_height": "210rpx",
-    "__grid1_column": 3,
-    "__grid1_top": "20rpx",
-    "__grid1_left": "0rpx",
-    "__grid1_width": "710rpx",
-    "__grid1_right": "0rpx",
-    "__grid1_columnStr": "1fr 1fr 1fr",
-    "objects": [
-        "grid1"
-    ]
-},
-    onReady:  function () {
-                    var self = this;
-                    var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, {});
-
-                    Promise.resolve(evt_data).then( function(evt) {
-            wx.showLoading({
-              title: `加载中...`,
-              mask: true
-            });
-
-            return evt;
-        }
-        ).then( function(evt) {
-                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'main', 'index.onInit', evt);
-            }
-            ).then( function(evt) {
-            wx.hideLoading();
-            return evt
-        }).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-                }
-            ,
+    bgmcontrol: function(){
+            moapp.bgmControl(this, app)                
+        },
 })

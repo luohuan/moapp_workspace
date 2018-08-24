@@ -2,7 +2,7 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 const qiniuUploader = require("../../utils/qiniuUploader")
 Page({
-    onGetUserInfo_5OMcgH:  function(evt) {
+    onGetUserInfo_HGmr7f:  function(evt) {
                     var self = this;
 
                     if (evt.detail.userInfo) {
@@ -18,7 +18,7 @@ Page({
                     }
                 }
                 ,
-    onButtonTap_DWtHJv:  function(evt) {
+    onButtonTap_cD85yA:  function(evt) {
                 var self = this;
                 ;
                 var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);

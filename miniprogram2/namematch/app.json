@@ -2,7 +2,8 @@
     "pages": [
         "pages/entrance/entrance",
         "pages/match/match",
-        "pages/share/share"
+        "pages/share/share",
+        "pages/__web_page/web_page"
     ],
     "window": {
         "backgroundTextStyle": "light",
