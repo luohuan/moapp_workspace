@@ -22,7 +22,7 @@ module.exports = {
     },
     __switchTab(ctx, cmd_data, page_data) {
         wx.switchTab({
-                  url: `../${cmd_data.page_name}/${cmd_data.page_name}`
+          url: `../${cmd_data.page_name}/${cmd_data.page_name}`
         });
     },
     __goBack(ctx, cmd_data, page_data) {
@@ -39,6 +39,23 @@ module.exports = {
     __showAlert(ctx, cmd_data, page_data) {
         ctx.moapp.showAlert(cmd_data.title, cmd_data.content);
     },
+    __showConfirm(ctx, cmd_data, page_data) {
+      wx.showModal({
+        title: cmd_data.title || '提示',
+        content: cmd_data.content || '',
+        success: (res) => {
+          if (res.confirm) {
+            ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.confirm.function, ctx.params);
+          } else if (res.cancel) {
+            ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.cancel.function, ctx.params);
+          }
+        },
+        fail: (res) => {
+          console.log('showModal fail! err:');
+          console.log(res);
+        }
+      }); // showModal        
+    },    
     __showTips(ctx, cmd_data, page_data) {
         wx.showToast({
           title: cmd_data.text,
@@ -156,7 +173,23 @@ module.exports = {
         }
       );
     },
+    getImageInfo(url){
+      return new Promise((resolve, reject)=> {
+        wx.getImageInfo({
+          src: url,
+          success:function(res){
+            console.log(res.width)
+            console.log(res.height)
+            resolve([res.width,res.height])
+          }
+        })
+      })
+
+
+    }
+    ,
     __uploadImage(ctx, cmd_data, page_data){
+      var _self = this
       console.log('uploadImage')
       var upcmd_data = cmd_data
       wx.chooseImage({
@@ -172,49 +205,66 @@ module.exports = {
           var len_file = tempFilePaths.length
           var up_success = 0;
           var success_url = []
+          var success_url_info = []
           var up_fail = 0
           var total_up = 0
           const app = getApp();
           for (var i = 0; i < len_file; i++) {
-            wx.uploadFile({
-              url: `${app.globalData.upload}`,
-              filePath: tempFilePaths[i],
-              name: 'file',
-              formData: {
-                'appid': ctx.appid,
-              },
-              success: function (res) {
-                var data = JSON.parse(res.data)
-                if (res.statusCode == 200) {
-                  up_success += 1;
-                  total_up += 1;
-                  success_url.push(data.url)
-                  wx.showLoading({
-                    title: '上传中' + up_success + '/' + tempFilePaths.length,
-                  })
-                } else {
+            //_self.getImageInfo(tempFilePaths[i]).then(res2=>{
+            (function(index){
+              wx.getImageInfo({
+              src: tempFilePaths[index],
+              success:function(resp){
+                //var temp_i = i
+                console.log(resp.width)
+                console.log(resp.height)
+                console.log(tempFilePaths)
+                wx.uploadFile({
+                url: `${app.globalData.upload}`,
+                filePath: tempFilePaths[index],
+                name: 'file',
+                formData: {
+                  'appid': ctx.appid,
+                },
+                success: function (res) {
+                  var data = JSON.parse(res.data)
+                  if (res.statusCode == 200 && data.ret ==0) {
+                    up_success += 1;
+                    total_up += 1;
+                    success_url.push(data.url)
+                    success_url_info.push({'width':resp.width,'height':resp.height,'orientation':resp.orientation,'type':resp.type})
+                    wx.showLoading({
+                      title: '上传中' + up_success + '/' + tempFilePaths.length,
+                    })
+                  } else {
+                    total_up += 1;
+                    up_fail += 1
+                  }
+                },
+                fail:function(){
                   total_up += 1;
                   up_fail += 1
+                },
+                complete:function(){
+                  if (total_up == len_file){
+                    console.log(ctx.params)
+                    ctx.params.params = {}
+                    ctx.params.params.urls = success_url
+                    ctx.params.params.images = success_url
+                    console.log(success_url_info)
+                    ctx.params.params.imagesInfo = success_url_info
+                    ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, upcmd_data.success.function, ctx.params);
+                    wx.hideLoading()
+                    wx.showToast({
+                      title: '上传完成',
+                    })
+                  }
                 }
-              },
-              fail:function(){
-                total_up += 1;
-                up_fail += 1
-              },
-              complete:function(){
-                if (total_up == len_file){
-                  console.log(ctx.params)
-                  ctx.params.params = {}
-                  ctx.params.params.urls = success_url
-                  ctx.params.params.images = success_url
-                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, upcmd_data.success.function, ctx.params);
-                  wx.hideLoading()
-                  wx.showToast({
-                    title: '上传完成',
-                  })
-                }
-              }
+              })
+             }
             })
+            })(i)
+            
           }
         },
         fail:function(){
@@ -222,6 +272,54 @@ module.exports = {
           ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.fail.function, ctx.params);
         }
       })
+    },
+    __playBGM(ctx, cmd_data, page_data) {
+      const app = getApp(); 
+      if (wx.createInnerAudioContext) {    
+        var t = Date.now();
+        app.bgm.src = cmd_data.src+`#${t}`;  // 兼容处理
+        app.bgm.control = cmd_data.control;
+        app.bgm.controlStyle = "bgm-" + cmd_data.controlStyle;
+        app.bgm.title = 'bgm';
+        app.bgm.autoplay = cmd_data.autoplay;
+        app.bgm.loop = cmd_data.loop;
+        page_data.bgmcontrol = + app.bgm.control;
+        page_data.bgmstate = [1, + ! app.bgm.autoplay];
+        page_data.controlStyle = app.bgm.controlStyle;
+      };
+    },
+    __pauseBGM(ctx, cmd_data, page_data) {
+      const app = getApp(); 
+      if(ctx.page_obj.data.bgmstate && ctx.page_obj.data.bgmstate[0] == 1) {
+        app.bgm.pause();
+        page_data.bgmstate = [1, 1];
+      };
+    },
+    __resumeBGM(ctx, cmd_data, page_data) {
+      const app = getApp();
+      if(ctx.page_obj.data.bgmstate && ctx.page_obj.data.bgmstate[0] == 1) {
+        app.bgm.pause();
+        page_data.bgmstate = [1, 0];
+      };
+    },
+    __closeBGM(ctx, cmd_data, page_data) {
+      const app = getApp();
+      if(ctx.page_obj.data.bgmstate && ctx.page_obj.data.bgmstate[0] == 1) {
+        app.bgm.src = "http://null";
+        app.bgm.control = false
+        app.bgm.stop();
+        page_data.bgmstate = [0, 1];
+        page_data.bgmcontrol = 0;
+      };     
+    },
+    __playAudio(ctx, cmd_data, page_data) {
+      const app = getApp();
+      if (wx.createInnerAudioContext) {
+        var t = Date.now();
+        app.soundEffect.src = cmd_data.src+`#${t}`;
+        app.soundEffect.autoplay = true;
+        page_data.soundEffectState = [1,0];
+      };
     },
     execute:  function(page_obj, appid, module_name, params, res_data, moapp_obj) {
         const app = getApp();
@@ -246,55 +344,6 @@ module.exports = {
             } else {
                 var cmd_data = item.data;
                 switch(cmd) {
-                  case 'playBGM':
-                    if (wx.createInnerAudioContext) {
-                      var t = Date.now();
-                      app.bgm.src = cmd_data.src+`#${t}`;
-                      app.bgm.control = cmd_data.control
-                      // app.bgm.control = false
-                      app.bgm.controlStyle = "bgm-" + cmd_data.controlStyle
-                      app.bgm.title = 'bgm'
-                      app.bgm.autoplay = cmd_data.autoplay
-                      app.bgm.loop = cmd_data.loop
-                      page_obj.setData({
-                          bgmcontrol :+ app.bgm.control,
-                          bgmstate: [1, + ! app.bgm.autoplay],
-                          controlStyle: app.bgm.controlStyle
-                      })
-                    }
-                    break;
-                  case 'pauseBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.pause();
-                      page_obj.setData({bgmstate: [1, 1]})
-                    }
-                    break;
-                  case 'resumeBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.play();
-                      page_obj.setData({bgmstate: [1, 0]})
-                    }
-                    break;
-                  case 'closeBGM':
-                    if(page_obj.data.bgmstate && page_obj.data.bgmstate[0] == 1) {
-                      app.bgm.src = "http://null"
-                      app.bgm.stop();
-                      page_obj.setData({
-                          bgmcontrol: 0,
-                          bgmstate: [0, 1]
-                      }) 
-                    }
-                    break;              
-                  case 'playAudio':
-                    if (wx.createInnerAudioContext) {
-                      var t = Date.now();
-                      app.soundEffect.src = cmd_data.src+`#${t}`
-                      app.soundEffect.autoplay = true
-                      page_obj.setData({
-                        soundEffectState:[1, 0]
-                      })
-                    }
-                    break;
                   case 'setData':
                     serverData[cmd_data.key] = cmd_data.value;
                     break;              

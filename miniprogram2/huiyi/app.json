@@ -8,8 +8,8 @@
     ],
     "window": {
         "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
         "navigationBarTitleText": "好友回忆墙",
-        "navigationBarTextStyle": "black",
-        "navigationBarBackgroundColor": "#fff"
+        "navigationBarTextStyle": "black"
     }
 }

@@ -1,0 +1,59 @@
+<!--pages/guanli/guanli.wxml-->
+<view class='top'>
+  <image src='../../images/back.png' class='back' bindtap='back'></image>
+</view>
+<!-- <image src='../../images/bgk2.jpg' mode='widthFix' class='bgk'></image>  -->
+<scroll-view scroll-y="true" class='list'>
+  <view style='width:100%;height:17%'></view>
+  <view wx:for="{{sentenceList}}" wx:key="unique" class='one' catchtap='{{isLongPress?"choiceOne":""}}' data-index='{{index}}'>
+    <view wx:if='{{isLongPress}}' class='choicePoint' style='{{item[7]?"background-color:red;":""}}'></view>
+    <text class='time'>{{item[3]}}</text>
+    <image src='{{item[2]}}' class='iss'></image>
+    <view class='two'>
+      <text class='name'>{{item[1]}}</text>
+      <view class='three' catchlongpress='openDelete'>
+        <text>{{item[0]}}</text>
+      </view>
+    </view>
+    <image class='pay' src='../../images/pay.png' bindtap='pay' data-id='{{item[5]}}' wx:if="{{!item[4]&&item[6]}}"></image>
+  </view>
+  <view style='width:100%;height:17%'></view>
+</scroll-view>
+
+<view class='gl' bindtap='openDelete' wx:if="{{!isLongPress}}">
+  <text>管 理</text>
+</view>
+
+<view>
+  <text class='huayu' wx:if='{{!sentenceList.length}}'>您还没有留言历史，快分享给小伙伴吧~</text>
+  <text class='huayu2' wx:if='{{!sentenceList.length}}'></text>
+  <button wx:if='{{!sentenceList.length}}' class='fenxiang' catchtap='fenxiang'>邀请好友评价</button>
+</view>
+
+
+<view wx:if='{{isLongPress}}' class='bottomBtn'>
+  <button class='delete' catchtap='shanchu'>删除</button>
+  <button class='quanxuan' catchtap='quanxuan'> 全{{isQuanXuan?"不":""}}选</button>
+  <button class='quxiao' catchtap='quxiao'> 取消</button>
+</view>
+
+<view wx:if='{{!isFirstOpenGuanli&&!isXiaoshi}}' class='mengceng {{isClickSuo?"c-mengceng-open":"c-mengceng-close"}}' bindtap='xiaoshi'></view>
+
+<view wx:if='{{!isFirstOpenGuanli&&!isXiaoshi}}' class='chuangkou {{isClickSuo?"c-chuangkou-open":"c-chuangkou-close"}}'>
+  <text class='title'>提示</text>
+  <text class='neirong' bindtap='openXuzhi'>解锁完整留言需支付金额<text style='color:red'>3.99</text>元，请\n在阅读<text style="color: #45A8C9;text-decoration: underline;">付款须知</text>后继续付款</text>
+  <view class='xuanzekuang' bindtap='xuanzetontyi'>
+    <image wx:if="{{isTongyi}}" src='../../images/gou_hei.png' class='gou'></image>
+  </view>
+  <text class='tishi' bindtap='xuanzetontyi'>我已阅读并同意付款通知</text>
+  <button class='quxiao' bindtap='xiaoshi'>取消</button>
+  <button class='queren' style='{{isTongyi?"background-color:#08A070":"color:#aaa"}}' bindtap='{{isTongyi?"querenpay":""}}'>继续付款</button>
+</view>
+
+<view wx:if='{{!isFirstOpenGuanli&&!isXuzhixiaoshi}}' class='mengceng {{isOpenFukuanxuzhi?"c-mengceng-open":"c-mengceng-close"}}' bindtap='querenxuzhi' style='z-index:7'></view>
+
+<view wx:if="{{!isFirstOpenGuanli&&!isXuzhixiaoshi}}" class='xuzhi {{isOpenFukuanxuzhi?"c-chuangkou-open":"c-chuangkou-close"}}'>
+  <text class='title'>付款须知</text>
+  <text class='neirong'>1.此价格仅解锁一条留言的完整内容;\n2.因本商品性质特殊，除付款后没有正常显示完整留言外，其他原因（如付错等）均不予以退款</text>
+  <button class='queding' bindtap='querenxuzhi'>我知道了</button>
+</view>

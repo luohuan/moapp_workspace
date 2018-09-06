@@ -1,0 +1,16 @@
+<!--pages/fenxiang/fenxiang.wxml-->
+<view class='top'>
+  <image src='../../images/back.png' class='back' bindtap='back'></image>
+</view>
+<!-- <image src='../../images/bgk2.jpg' mode='widthFix' class='bgk'></image> -->
+
+<view class='ewm'>
+  <image class='one' src='{{erweimaImage}}'></image>
+</view>
+
+
+
+<button class='baocun' catchtap='baocun'>保存海报</button>
+<button class='yaoqing' open-type="share">邀请好友评价</button>
+<text class='fanhui' catchtap='back'>返回首页</text>
+

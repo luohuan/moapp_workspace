@@ -3,278 +3,328 @@ import requests
 import hashlib
 import json
 dormitorydata=[
-    # {
-    #     'id':2,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/92920857d821b82764dd7d6b51fe2bcb.jpg',
-    #     'title':'深度个人占星',
-    #     'people':'19.8万人在测',
-    #     'details':'个人星盘分析，透彻解读你的命运！',
-    #     "path":"https://xcx2-zxcs.lingji666.com/gerenzhanxing/index.html",
-    #     "type":'protest',
-    # },
+   
 
-    # {
-    #     'id':0,
-    #     'cover':'http://material.motimaster.com/harvey/5455/myrose/29c83079b0f9ffaa2b75c2ce0b90644d.png',
-    #     'title':'八字合婚',
-    #     'people':'429.533万人在测',
-    #     'details':'夫妻情缘的深浅，看八字日柱便知...',
-    #     "path":"https://xcx2-zxcs.lingji666.com/newhehun/index.html",
-    #     'appid':'',
-    #     'button_name':'开玩',
-    #     "type":'protest',
-    # },
-    # {
-    #     'id':1,
-    #     'cover':'http://material.motimaster.com/harvey/5455/myrose/cdddb5693da5559e2d9964f494184b14.png',
-    #     'title':'恋爱配对',
-    #     'people':'824.23万人在测',
-    #     'details':'十二星座配对幸福指数，看看你跟谁最配',
-    #     "path":"https://xcx2-zxcs.lingji666.com/lianaipeidui/index.html",
-    #     'appid':'',
-    #     'button_name':'开玩',
-    #     "type":'protest',
-    # },
-    # {
-    #     'id':2,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/92920857d821b82764dd7d6b51fe2bcb.jpg',
-    #     'title':'深度个人占星',
-    #     'people':'19.8万人在测',
-    #     'details':'个人星盘分析，透彻解读你的命运！',
-    #     "path":"https://xcx2-zxcs.lingji666.com/gerenzhanxing/index.html",
-    #     'appid':'',
-    #     'button_name':'开玩',
-    #     "type":'protest',
-    # },
-    # {
-    #     'id':3,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/312e5c10b62539a3bd5f6f9237b3d5a0.jpg',
-    #     'title':'2018狗年运程',
-    #     'people':'46.03万人在测',
-    #     'details':'2018狗年运程解析，助您催旺桃花姻缘...',
-    #     "path":"https://xcx2-zxcs.lingji666.com/mllyuncheng/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':4,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/e490c2f427c3fe96f8644e48f14d6622.jpg',
-    #     'title':'你有多好命？',
-    #     'people':'47.02万人在测',
-    #     'details':'分析命中富贵格局，解读今生吉凶祸福...',
-    #     "path":"https://xcx2-zxcs.lingji666.com/liunianyuncheng/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':5,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/cbe9068f79faeff1a6ab40d5f1df682b.jpg',
-    #     'title':'感情支招',
-    #     'people':'27.44万人在测',
-    #     'details':'八字姻缘解析，看你何时恋爱结婚？',
-    #     "path":"https://xcx2-zxcs.lingji666.com/baziyinyuan/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':6,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/a4c6ebdb29a93a0c96a395e5420176fd.jpg',
-    #     'title':'爱情塔罗牌',
-    #     'people':'47.3万人在测',
-    #     'details':'三张塔罗牌，解决你的爱情烦恼！',
-    #     "path":"https://xcx2-zxcs.lingji666.com/forecasttaluobundle/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':6,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/4fba6a7a432b118a57e6e5d659c52738.jpg',
-    #     'title':'你今生有着怎样的命运？',
-    #     'people':'49.53万人在测',
-    #     'details':'通晓八字，乐知天命，道尽你今生命中...',
-    #     "path":"https://xcx2-zxcs.lingji666.com/forecastbazijingpibundle/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':7,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/e04ef01bcbbfe3e2ece047cdc7f3ffd5.jpg',
-    #     'title':'前世今生',
-    #     'people':'49.53万人在测',
-    #     'details':'知晓前世姻缘，重结今生善果！',
-    #     "path":"https://xcx2-zxcs.lingji666.com/forecastlunhuishubundle/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # },
-    # {
-    #     'id':8,
-    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/69f671568b6f20fee220bffaab711c6b.jpg',
-    #     'title':'前世姻缘',
-    #     'people':'49.53万人在测',
-    #     'details':'今生的相遇相知，是前世修来的何种缘...',
-    #     "path":"https://xcx2-zxcs.lingji666.com/qianshiyinyuan/index.html",
-    #     "type":'protest',
-    #     'appid':'',
-    #     'button_name':'开玩',
-    # }
+    {
+        'id':0,
+        'cover':'http://material.motimaster.com/harvey/5455/myrose/29c83079b0f9ffaa2b75c2ce0b90644d.png',
+        'title':'八字合婚',
+        'people':'429.533万人在测',
+        'details':'夫妻情缘的深浅，看八字日柱便知...',
+        "path":"https://xcx2-zxcs.lingji666.com/newhehun/index.html",
+        'appid':'',
+        'button_name':'测试',
+        "type":'protest',
+    },
+    {
+        'id':1,
+        'cover':'http://material.motimaster.com/harvey/5455/myrose/cdddb5693da5559e2d9964f494184b14.png',
+        'title':'恋爱配对',
+        'people':'824.23万人在测',
+        'details':'十二星座配对幸福指数，看看你跟谁最配',
+        "path":"https://xcx2-zxcs.lingji666.com/lianaipeidui/index.html",
+        'appid':'',
+        'button_name':'测试',
+        "type":'protest',
+    },
+    {
+        'id':2,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/92920857d821b82764dd7d6b51fe2bcb.jpg',
+        'title':'深度个人占星',
+        'people':'19.8万人在测',
+        'details':'个人星盘分析，透彻解读你的命运！',
+        "path":"https://xcx2-zxcs.lingji666.com/gerenzhanxing/index.html",
+        'appid':'',
+        'button_name':'测试',
+        "type":'protest',
+    },
+    {
+        'id':3,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/312e5c10b62539a3bd5f6f9237b3d5a0.jpg',
+        'title':'2018狗年运程',
+        'people':'46.03万人在测',
+        'details':'2018狗年运程解析，助您催旺桃花姻缘...',
+        "path":"https://xcx2-zxcs.lingji666.com/mllyuncheng/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':4,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/e490c2f427c3fe96f8644e48f14d6622.jpg',
+        'title':'你有多好命？',
+        'people':'47.02万人在测',
+        'details':'分析命中富贵格局，解读今生吉凶祸福...',
+        "path":"https://xcx2-zxcs.lingji666.com/liunianyuncheng/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':5,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/cbe9068f79faeff1a6ab40d5f1df682b.jpg',
+        'title':'感情支招',
+        'people':'27.44万人在测',
+        'details':'八字姻缘解析，看你何时恋爱结婚？',
+        "path":"https://xcx2-zxcs.lingji666.com/baziyinyuan/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':6,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/a4c6ebdb29a93a0c96a395e5420176fd.jpg',
+        'title':'爱情塔罗牌',
+        'people':'47.3万人在测',
+        'details':'三张塔罗牌，解决你的爱情烦恼！',
+        "path":"https://xcx2-zxcs.lingji666.com/forecasttaluobundle/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':6,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/4fba6a7a432b118a57e6e5d659c52738.jpg',
+        'title':'你今生有着怎样的命运？',
+        'people':'49.53万人在测',
+        'details':'通晓八字，乐知天命，道尽你今生命中...',
+        "path":"https://xcx2-zxcs.lingji666.com/forecastbazijingpibundle/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':7,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/e04ef01bcbbfe3e2ece047cdc7f3ffd5.jpg',
+        'title':'前世今生',
+        'people':'49.53万人在测',
+        'details':'知晓前世姻缘，重结今生善果！',
+        "path":"https://xcx2-zxcs.lingji666.com/forecastlunhuishubundle/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
+    },
+    {
+        'id':8,
+        'cover':'http://material.motimaster.com/linda123jiang/hi/main/69f671568b6f20fee220bffaab711c6b.jpg',
+        'title':'前世姻缘',
+        'people':'49.53万人在测',
+        'details':'今生的相遇相知，是前世修来的何种缘...',
+        "path":"https://xcx2-zxcs.lingji666.com/qianshiyinyuan/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'开玩',
+    }
 
     #############################################################
 
-    {
-        'index':1,
-        'cover':'http://material.motimaster.com/shiyimin1534211266000/haoyouhuawo.jpg',
-        'title':'好友画我',
-        'people':'98.03万人在测',
-        'details':'好友眼中的你是什么样子的？',
-        'path':'pages/index/index',
-        'appid':'wx02207e6022e44158',
-        'button_name':'开玩'
-    },
-    {
-        'index':2,
-        'cover':'http://material.motimaster.com/linda123jiang/hi/main/fabb5b1021d7c043d1b7628f34856f34.jpg',
-        'title':'心理年龄',
-        'people':'78.21万人在测',
-        'details':'你的性格是成熟型还是幼稚型？',
-        'path':'pages/page6/page6',
-        'appid':'wx9f918c171334a22a',
-        'button_name':'开玩'
-    },
+    # {
+    #     'index':1,
+    #     'cover':'http://material.motimaster.com/shiyimin1534211266000/haoyouhuawo.jpg',
+    #     'title':'好友画我',
+    #     'people':'98.03万人在测',
+    #     'details':'好友眼中的你是什么样子的？',
+    #     'path':'pages/index/index',
+    #     'appid':'wx02207e6022e44158',
+    #     'button_name':'开玩'
+    # },
+    # {
+    #     'index':2,
+    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/fabb5b1021d7c043d1b7628f34856f34.jpg',
+    #     'title':'心理年龄',
+    #     'people':'78.21万人在测',
+    #     'details':'你的性格是成熟型还是幼稚型？',
+    #     'path':'pages/page6/page6',
+    #     'appid':'wx9f918c171334a22a',
+    #     'button_name':'开玩'
+    # },
 
-    {
-        'index':3,
-        'cover':'http://material.motimaster.com/jiangxiaoni1533089743000/6.jpg',
-        'title':'看你怎么说',
-        'people':'129.35万人在测',
-        'details':'说说你对我的印象吧！',
-        'path':'pages/page1/page1',
-        'appid':'wxc1a59dd1befff332',
-        'button_name':'开玩'
-    },
-    {
-        'index':4,
-        'cover':'http://material.motimaster.com/shiyimin1534212291000/pingxing.jpg',
-        'title':'平行世界',
-        'people':'69.89万人在测',
-        'details':'平行世界里，你会遇到哪些缘分？',
-        'path':'pages/page1/page1',       
-        'appid':'wx628e03240351132c',
-        'button_name':'开玩'
-    },
-    {
-        'index':5,
-        'cover':'http://material.motimaster.com/linda123jiang/hi/main/417a21294755bea737cefda07585213a.jpg',
-        'title':'名字价值',
-        'people':'89.08万人在测',
-        'details':'测你名字都包含哪些特性？' ,
-        'path':'pages/page9/page9',
-        'appid':'wx9f918c171334a22a', 
-        'button_name':'开玩'
+    # {
+    #     'index':3,
+    #     'cover':'http://material.motimaster.com/jiangxiaoni1533089743000/6.jpg',
+    #     'title':'看你怎么说',
+    #     'people':'129.35万人在测',
+    #     'details':'说说你对我的印象吧！',
+    #     'path':'pages/page1/page1',
+    #     'appid':'wxc1a59dd1befff332',
+    #     'button_name':'开玩'
+    # },
+    # {
+    #     'index':4,
+    #     'cover':'http://material.motimaster.com/shiyimin1534212291000/pingxing.jpg',
+    #     'title':'平行世界',
+    #     'people':'69.89万人在测',
+    #     'details':'平行世界里，你会遇到哪些缘分？',
+    #     'path':'pages/page1/page1',       
+    #     'appid':'wx628e03240351132c',
+    #     'button_name':'开玩'
+    # },
+    # {
+    #     'index':5,
+    #     'cover':'http://material.motimaster.com/linda123jiang/hi/main/417a21294755bea737cefda07585213a.jpg',
+    #     'title':'名字价值',
+    #     'people':'89.08万人在测',
+    #     'details':'测你名字都包含哪些特性？' ,
+    #     'path':'pages/page9/page9',
+    #     'appid':'wx9f918c171334a22a', 
+    #     'button_name':'开玩'
 
-    },
+    # },
 
-    {
-        'index':6,
-        'cover':'http://material.motimaster.com/jiangxiaoni1533094978000/123.jpg',
-        'title':'八月关键词',
-        'people':'21.09万人在测',
-        'details':'愿你有人爱，有事做，也有所期待。',
-        'path':'pages/page13/page13',
-        'appid':'wx9f918c171334a22a', 
-        'button_name':'开玩'
-    }
+    # {
+    #     'index':6,
+    #     'cover':'http://material.motimaster.com/jiangxiaoni1533094978000/123.jpg',
+    #     'title':'八月关键词',
+    #     'people':'21.09万人在测',
+    #     'details':'愿你有人爱，有事做，也有所期待。',
+    #     'path':'pages/page13/page13',
+    #     'appid':'wx9f918c171334a22a', 
+    #     'button_name':'开玩'
+    # }
 
 ]
 
 griditems1 = [
-    {   'id':1,
-        'src': 'http://material.motimaster.com/shiyimin1534153254000/xingming.png',
-        'people':'111万人在测',
-        'title': '姓名契合度',
-        'path':'pages/entrance/entrance',
-        'appid':'wxa9b01a93c80e98e9',
-        'type': 'protest'
-       },
+    {
+        'id':0,
+        'src':'http://material.motimaster.com/harvey/5455/myrose/29c83079b0f9ffaa2b75c2ce0b90644d.png',
+        'title':'八字合婚',
+        'people':'',
+        'details':'夫妻情缘的深浅，看八字日柱便知...',
+        "path":"https://xcx2-zxcs.lingji666.com/newhehun/index.html",
+        'appid':'',
+        "type":'protest',
+    },
+    {
+        'id':1,
+        'src':'http://material.motimaster.com/harvey/5455/myrose/cdddb5693da5559e2d9964f494184b14.png',
+        'title':'恋爱配对',
+        'people':'',
+        'details':'十二星座配对幸福指数，看看你跟谁最配',
+        "path":"https://xcx2-zxcs.lingji666.com/lianaipeidui/index.html",
+        'appid':'',
+        'button_name':'测试',
+        "type":'protest',
+    },
     {
         'id':2,
-        'src': 'http://material.motimaster.com/shiyimin1534153129000/xingzuoxiaowo.png',
-        'people':'1200万人在测',
-        'title': '星座小屋',
-        'path':'pages/pageentrance/pageentrance',
-        'appid':'wx01434b3ed0010d28',
-        'type': 'protest'
+        'src':'http://material.motimaster.com/linda123jiang/hi/main/92920857d821b82764dd7d6b51fe2bcb.jpg',
+        'title':'个人占星',
+        'people':'',
+        'details':'个人星盘分析，透彻解读你的命运！',
+        "path":"https://xcx2-zxcs.lingji666.com/gerenzhanxing/index.html",
+        'appid':'',
+        'button_name':'测试',
+        "type":'protest',
     },
     {
         'id':3,
-        'src': 'http://material.motimaster.com/shiyimin1534153552000/huiyiqiang.png',
-        'people':'30万人在测',
-        'title': '好友回忆墙',
-        'path':'pages/begin/begin',
-        'appid':'wx468ad783f165eea0',
-        'type': 'protest'
-
+        'src':'http://material.motimaster.com/linda123jiang/hi/main/312e5c10b62539a3bd5f6f9237b3d5a0.jpg',
+        'title':'狗年运程',
+        'people':'',
+        'details':'2018狗年运程解析，助您催旺桃花姻缘...',
+        "path":"https://xcx2-zxcs.lingji666.com/mllyuncheng/index.html",
+        "type":'protest',
+        'appid':'',
+        'button_name':'测试',
     },
-    {
-        'id':4,
-        'src': 'http://material.motimaster.com/shiyimin1534154048000/quce.png',
-        'people':'87万人在测',
-        'title': '趣测小窝',
-        'path':'pages/mainPage/mainPage',
-        'appid':'wx91f13354f5356b6c',
-        'type': 'protest'
+    # {   'id':1,
+    #     'src': 'http://material.motimaster.com/shiyimin1534153254000/xingming.png',
+    #     'people':'111万人在测',
+    #     'title': '姓名契合度',
+    #     'path':'pages/entrance/entrance',
+    #     'appid':'wxa9b01a93c80e98e9',
+    #     'type': 'protest'
+    #    },
+    # {
+    #     'id':2,
+    #     'src': 'http://material.motimaster.com/shiyimin1534153129000/xingzuoxiaowo.png',
+    #     'people':'1200万人在测',
+    #     'title': '星座小屋',
+    #     'path':'pages/pageentrance/pageentrance',
+    #     'appid':'wx01434b3ed0010d28',
+    #     'type': 'protest'
+    # },
+    # {
+    #     'id':3,
+    #     'src': 'http://material.motimaster.com/shiyimin1534153552000/huiyiqiang.png',
+    #     'people':'30万人在测',
+    #     'title': '好友回忆墙',
+    #     'path':'pages/begin/begin',
+    #     'appid':'wx468ad783f165eea0',
+    #     'type': 'protest'
 
-    },
-    {
-        'id':5,
-        'src':'http://material.motimaster.com/shiyimin1534153676000/haoyouhuawo.png',
-        'title':'好友画我',
-        'people':'98万人在测',
-        'path':'pages/index/index',
-        'appid':'wx02207e6022e44158',
-        'type': 'protest'
-    }
+    # },
+    # {
+    #     'id':4,
+    #     'src': 'http://material.motimaster.com/shiyimin1534154048000/quce.png',
+    #     'people':'87万人在测',
+    #     'title': '趣测小窝',
+    #     'path':'pages/mainPage/mainPage',
+    #     'appid':'wx91f13354f5356b6c',
+    #     'type': 'protest'
+
+    # },
+    # {
+    #     'id':5,
+    #     'src':'http://material.motimaster.com/shiyimin1534153676000/haoyouhuawo.png',
+    #     'title':'好友画我',
+    #     'people':'98万人在测',
+    #     'path':'pages/index/index',
+    #     'appid':'wx02207e6022e44158',
+    #     'type': 'protest'
+    # }
 
 ]
 
 dataswiper1=[
             {
                 'id':3,
-                'pic':'http://material.motimaster.com/shiyimin1534133050000/radar.jpg',
-                'title':'好友匹配',
-                'people':'78.21万人在测',
+                'pic':'http://material.motimaster.com/yuyuan/Duudle/create/f234beb7d4e70116d3fe15c608fcf707.jpg',
+                'title':'谁最懂我',
+                'people':'78.21万人在玩',
                 'details':'看看你们的名字契合度是多少？',
-                'path':'pages/entrance/entrance',
-                'appid':'wxa9b01a93c80e98e9',
+                'path':'pages/mainpage/mainpage',
+                'appid':'wx18610e0755615e2f',
                 
                 'button_name':'可用',
                 'type': 'picker'
 
             },
             {
-                'id': 2,
-                'pic': 'http://material.motimaster.com/shiyimin1534133267000/xingzuo.jpg',
-                'title': '星座小窝',
-                'path':'pages/pageentrance/pageentrance',
-                'appid':'wx01434b3ed0010d28',
+                'id':2,
+                'pic':'http://material.motimaster.com/liuhongjie1534411840000/banner.png',
+                'title':'看动图猜影视闯关',
+                'people':'78.21万人在玩',
+                'details':'看动图猜影视闯关',
+                'path':'pages/mainPage/mainPage',
+                'appid':'wx91f13354f5356b6c',
+                
+                'button_name':'可用',
                 'type': 'picker'
+
             },
-            {
-                'id': 1,
-                'pic': 'http://material.motimaster.com/shiyimin1534137928000/huiyi.jpg',
-                'title': '好友回忆墙',
-                'path':'pages/begin/begin',
-                'appid':'wx468ad783f165eea0',
-                'type': 'input'
-            }]
+            # {
+            #     'id': 2,
+            #     'pic': 'http://material.motimaster.com/shiyimin1534133267000/xingzuo.jpg',
+            #     'title': '星座小窝',
+            #     'path':'pages/pageentrance/pageentrance',
+            #     'appid':'wx01434b3ed0010d28',
+            #     'type': 'picker'
+            # },
+            # {
+            #     'id': 1,
+            #     'pic': 'http://material.motimaster.com/shiyimin1534137928000/huiyi.jpg',
+            #     'title': '好友回忆墙',
+            #     'path':'pages/begin/begin',
+            #     'appid':'wx468ad783f165eea0',
+            #     'type': 'input'
+            # }
+            ]
 
 
 
+# 小猜心
 def main():
     with MoApp(appid='wxf7c6308b0e199d50',name='娱乐盒子'):
         listPage()
@@ -355,7 +405,10 @@ class listPage(Page):
         mo.showAlert('好友名字契合度','你们名字契合度分数为%s分'% str(int(random.random()*100)))
 
     def onInit():   
-        #page.neirong.hidden = False
+        # mo.setNavibarTitle('专业测试占卜')
+        # if page.options.channel != None:
+        #     user.channel = page.options.channel
+        # page.neirong.hidden = False
         page.auditing_box.hidden = False
         mo.setNavibarTitle('名字匹配')
         if page.options.mpid:
@@ -379,10 +432,10 @@ class listPage(Page):
             page.hidden_ad.pos=[0,310]
 
 
-        page.recommend.text='热门推荐'             #这里控制‘热门’的文字
+        page.recommend.text='热门测试'             #这里控制‘热门’的文字
         page.recommend.color='#d32f24'
 
-        page.all_play.text='大家都在玩'      #这里控制‘大家都在玩’的文字
+        page.all_play.text='测试·占卜'      #这里控制‘大家都在玩’的文字
         page.all_play.color='#d32f24'
 
         page.dataswiper.data = dataswiper1
@@ -393,10 +446,15 @@ class listPage(Page):
 
     def go_to():
         #mo.stat(params.appid)
-       
-        #mo.gotoMiniProgram(params.appid,params.path)
-        if params.type == 'protest':
-            mo.goto('webview', src=params.path)
+        if params.type == 'protest' or params.tyepe == 'protest':
+            if user.channel != None:
+                mo.goto('webview', src=params.path + "?channel=%s"%user.channel )
+            else:
+                mo.goto('webview', src=params.path + "?channel=swlpdxcx")
+            #mo.goto('webview', src=params.path)
+        else:
+            mo.stat(params.appid)
+            mo.gotoMiniProgram(params.appid,params.path)
     def ad_goto():
         pass
 
@@ -413,7 +471,7 @@ class payment(Page):
     def UI():
         Text(text='支付中')
     def onInit():
-        mo.wxpay.pay('专业测试',0.1, onPaySuccessed, onPayFailed)
+        mo.wxpay.pay('专业测试', float(page.options.price), onPaySuccessed, onPayFailed)
 
     def onPaySuccessed():
         md5_value = hashlib.md5()

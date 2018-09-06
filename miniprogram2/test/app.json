@@ -1,12 +1,12 @@
 {
+    "window": {
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "二维码示例",
+        "navigationBarBackgroundColor": "#fff"
+    },
     "pages": [
         "pages/share/share",
         "pages/__web_page/web_page"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "二维码示例",
-        "navigationBarTextStyle": "black"
-    }
+    ]
 }

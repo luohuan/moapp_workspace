@@ -1,48 +1,21 @@
 const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
-const qiniuUploader = require("../../utils/qiniuUploader")
+
 Page({
     data: {
-    "__list1_top": "35rpx",
+    "__list1_right": "0rpx",
     "__list1_data": "",
-    "__AD1_top": "990rpx",
-    "__AD1_hidden": false,
+    "__AD1_width": "750rpx",
+    "__list1_left": "0rpx",
+    "__list1_top": "35rpx",
     "objects": [
         "list1",
         "AD1"
     ],
-    "__list1_right": "0rpx",
-    "__list1_left": "0rpx",
-    "__AD1_width": "750rpx",
+    "__AD1_hidden": false,
+    "__AD1_top": "990rpx",
     "__AD1_height": "125rpx"
 },
-    onLoad: function(options) {
-            for (let k in options){
-                if(typeof(options[k]) == 'string') {
-                    options[k] = decodeURIComponent(options[k])
-                }
-            }
-            this.setData({
-                options: options,
-                createTime: parseInt(Date.now()/1000)
-            });           
-            wx.showShareMenu({withShareTicket: true});
-        },
-    onViewTap_CvU0nk:  function(evt) {
-                var self = this;
-                
-            self.setData({
-                __list1_item: evt.currentTarget.dataset
-            })
-            ;
-                var evt_data = moapp.genEventData("wx91f13354f5356b6c", "TopListPage", self, evt.currentTarget.dataset, evt.currentTarget);
-                
-                Promise.resolve(evt_data).then( function(evt) {
-            return evt;
-        }
-        ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-            }
-            ,
     onShareAppMessage: function(opt) {
                     var self = this;
                     let options = '';
@@ -99,19 +72,6 @@ Page({
 
                     return shareInfo;                
                 },
-    bgmcontrol: function(){
-            moapp.bgmControl(this, app)                
-        },
-    onShow:  function (opt) {
-                    var self = this;
-                    var evt_data = moapp.genEventData("wx91f13354f5356b6c", "TopListPage", self, {});
-                    moapp.bgmAllInOne(self, app);
-                    Promise.resolve(evt_data).then( function(evt) {
-            return evt;
-        }
-        ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-                }
-            ,
     onReady:  function () {
                     var self = this;
                     var evt_data = moapp.genEventData("wx91f13354f5356b6c", "TopListPage", self, {});
@@ -130,7 +90,47 @@ Page({
             ).then( function(evt) {
             wx.hideLoading();
             return evt
-        }).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
+        }).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+                }
+            ,
+    onViewTap_w6VDZE:  function(evt) {
+                var self = this;
+                
+            self.setData({
+                __list1_item: evt.currentTarget.dataset
+            })
+            ;
+                var evt_data = moapp.genEventData("wx91f13354f5356b6c", "TopListPage", self, evt.currentTarget.dataset, evt.currentTarget);
+                
+                Promise.resolve(evt_data).then( function(evt) {
+            return evt;
+        }
+        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
+            ,
+    onLoad: function(options) {
+            for (let k in options){
+                if(typeof(options[k]) == 'string') {
+                    options[k] = decodeURIComponent(options[k])
+                }
+            }
+            this.setData({
+                options: options,
+                createTime: parseInt(Date.now()/1000)
+            });           
+            wx.showShareMenu({withShareTicket: true});
+        },
+    bgmcontrol: function(){
+            moapp.bgmControl(this, app)                
+        },
+    onShow:  function (opt) {
+                    var self = this;
+                    var evt_data = moapp.genEventData("wx91f13354f5356b6c", "TopListPage", self, {});
+                    moapp.bgmAllInOne(self, app);
+                    Promise.resolve(evt_data).then( function(evt) {
+            return evt;
+        }
+        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
                 }
             ,
 })

@@ -1,0 +1,19 @@
+page {background:url(http://material.motimaster.com/chenwei1535513828000/haoyouyinxiang.jpg);background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;-moz-background-size:100% 100%;}
+
+                @-webkit-keyframes ef_1 {
+                  from {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+
+                  50% {
+                    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                    transform: scale3d(1.05, 1.05, 1.05);
+                  }
+
+                  to {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+                }
+        

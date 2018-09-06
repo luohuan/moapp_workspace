@@ -1,0 +1,4 @@
+page {background:#f2f2f2;background-repeat:no-repeat;-moz-background-size:100% 100%;background-size:100% 100%;background-attachment:fixed;}
+ @-webkit-keyframes ef_1 
+                      { 
+                   0% {left:630rpx;top:800rpx;}  100% {left:580rpx;top:800rpx;} }

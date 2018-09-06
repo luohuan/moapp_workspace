@@ -1,0 +1,39 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/PublishPage/PublishPage",
+        "pages/mine/mine",
+        "pages/__web_page/web_page"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeSale",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "position": "bottom",
+        "textColor": "#000000",
+        "selectedColor": "#FF9153",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "逛逛",
+                "iconPath": "images/guangguang1.png",
+                "selectedIconPath": "images/guangguang2.png"
+            },
+            {
+                "pagePath": "pages/PublishPage/PublishPage",
+                "text": "发布",
+                "iconPath": "images/fabu1.png",
+                "selectedIconPath": "images/fabu2.png"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "text": "我的",
+                "iconPath": "images/wode1.png",
+                "selectedIconPath": "images/wode2.png"
+            }
+        ]
+    }
+}

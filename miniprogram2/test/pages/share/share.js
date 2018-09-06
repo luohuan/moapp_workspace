@@ -2,45 +2,55 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 
 Page({
-    onGetUserInfo_zfd3Y6:  function(evt) {
-                    var self = this;
-
-                    if (evt.detail.userInfo) {
-                        app.globalData.userInfo = evt.detail.userInfo;
-
-                        var evt_data = moapp.genEventData("wx08fe2b1ff0c169f2", "share", self, evt.currentTarget.dataset);
-                        Promise.resolve(evt_data).then( function(evt) {
-                return moapp.requestCloudFunction(self, 'wx08fe2b1ff0c169f2', 'main', 'share.test', evt);
+    onLoad: function(options) {
+            for (let k in options){
+                if(typeof(options[k]) == 'string') {
+                    options[k] = decodeURIComponent(options[k])
+                }
             }
-            ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-                    } else {
-                        console.log('get user info fail! error message:' + evt.detail.errMsg);
-                    }
-                }
-                ,
-    data: {
-    "objects": [
-        "shareImage",
-        "s"
-    ],
-    "__shareImage_src": "",
-    "__shareImage_width": "750rpx",
-    "__shareImage_height": "750rpx",
-    "__shareImage_left": "0rpx",
-    "__shareImage_top": "0rpx",
-    "__s_text": "\u83b7\u53d6\u4fe1\u606f",
-    "__s_disabled": ""
-},
-    onShow:  function (opt) {
-                    var self = this;
-                    var evt_data = moapp.genEventData("wx08fe2b1ff0c169f2", "share", self, {});
-                    moapp.bgmAllInOne(self, app);
-                    Promise.resolve(evt_data).then( function(evt) {
-            return evt;
-        }
-        ).catch( err => {/*console.log("Event exception, err:");console.log(JSON.stringify(err));*/})
-                }
+            this.setData({
+                options: options,
+                createTime: parseInt(Date.now()/1000)
+            });           
+            wx.showShareMenu({withShareTicket: true});
+        },
+    onSelectorPickerChange_zGoWwE:  function(evt) {
+                var self = this;
+                
+            self.setData({
+                __templatetitle_value: evt.detail.value
+            })
+            ;
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "share", self, evt.detail.value);
+                Promise.resolve(evt_data).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'main', 'share.choose_template', evt);
+            }
+            ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
             ,
+    data: {
+    "__templatetitle_text": "\u9762\u8bd5\u9080\u8bf7\u901a\u77e5",
+    "__templatetitle_top": "65rpx",
+    "__templatetitle_height": "90rpx",
+    "__templatetitle_background": "#256df3",
+    "__templatetitle_fontSize": "40rpx",
+    "__templatetitle_width": "600rpx",
+    "objects": [
+        "templatetitle"
+    ],
+    "__templatetitle_left": "0rpx",
+    "__templatetitle_range": [
+        "232",
+        "2323"
+    ],
+    "__templatetitle_color": "white",
+    "__templatetitle_right": "0rpx",
+    "__templatetitle_disabled": "",
+    "__templatetitle_value": ""
+},
+    bgmcontrol: function(){
+            moapp.bgmControl(this, app)                
+        },
     onShareAppMessage: function(opt) {
                     var self = this;
                     let options = '';
@@ -69,13 +79,13 @@ Page({
                             console.log(res);
                             
                             
-                            var evt_data = moapp.genEventData("wx08fe2b1ff0c169f2", "share", self, {});
+                            var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "share", self, {});
                             Promise.resolve(evt_data)
                         },
                         fail: function(res) {
                             console.log('share failed!');
                             console.log(res);
-                            var evt_data = moapp.genEventData("wx08fe2b1ff0c169f2", "share", self, {});
+                            var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "share", self, {});
                             Promise.resolve(evt_data)
                         }
                     }
@@ -94,24 +104,14 @@ Page({
 
                     return shareInfo;                
                 },
-    onLoad: function(options) {
-            for (let k in options){
-                if(typeof(options[k]) == 'string') {
-                    options[k] = decodeURIComponent(options[k])
+    onShow:  function (opt) {
+                    var self = this;
+                    var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "share", self, {});
+                    moapp.bgmAllInOne(self, app);
+                    Promise.resolve(evt_data).then( function(evt) {
+            return evt;
+        }
+        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
                 }
-            }
-            this.setData({
-                options: options,
-                createTime: parseInt(Date.now()/1000)
-            });           
-            wx.showShareMenu({withShareTicket: true});
-        },
-    bgmcontrol: function(){
-            moapp.bgmControl(this, app)                
-        },
-    formIdHandler: function (e) {
-                        var appid= `wx08fe2b1ff0c169f2`
-                        moapp.submitFormId(appid, e.detail.formId)
-
-                    },
+            ,
 })

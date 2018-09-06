@@ -2,7 +2,8 @@
     "pages": [
         "pages/listPage/listPage",
         "pages/webview/webview",
-        "pages/payment/payment"
+        "pages/payment/payment",
+        "pages/__web_page/web_page"
     ],
     "window": {
         "backgroundTextStyle": "light",

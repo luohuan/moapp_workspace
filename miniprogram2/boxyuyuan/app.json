@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/MainPage/MainPage",
+        "pages/__web_page/web_page"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "趣玩盒子"
+    }
+}

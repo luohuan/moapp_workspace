@@ -1,0 +1,7 @@
+page {background:#383838;-moz-background-size:100% 100%;background-size:100% 100%;background-repeat:no-repeat;background-attachment:fixed;}
+
+            @-webkit-keyframes ef_1{
+                from{-webkit-transform: rotate(0deg);}
+                to{-webkit-transform: rotate(360deg);}
+            }
+            

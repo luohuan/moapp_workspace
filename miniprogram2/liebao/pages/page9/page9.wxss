@@ -1,0 +1,19 @@
+page {background:url(http://material.motimaster.com/chenwei1535529173000/小程序底图_自定义px_2018.08.29.jpg);background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;-moz-background-size:100% 100%;}
+
+                @-webkit-keyframes ef_2 {
+                  from {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+
+                  50% {
+                    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                    transform: scale3d(1.05, 1.05, 1.05);
+                  }
+
+                  to {
+                    -webkit-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                  }
+                }
+        

@@ -1,0 +1,18 @@
+{
+    "window": {
+        "navigationBarTitleText": "万事屋",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black",
+        "backgroundTextStyle": "light"
+    },
+    "pages": [
+        "pages/firstpage/firstpage",
+        "pages/page6/page6",
+        "pages/page7/page7",
+        "pages/page8/page8",
+        "pages/page9/page9",
+        "pages/page10/page10",
+        "pages/page11/page11",
+        "pages/__web_page/web_page"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/second/second",
+        "pages/__web_page/web_page"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "testdanmu",
+        "navigationBarTextStyle": "black"
+    }
+}

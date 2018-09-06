@@ -1,4 +1,4 @@
-page {background:#2A2C3B;background-size:100% 100%;background-attachment:fixed;-moz-background-size:100% 100%;background-repeat:no-repeat;}
+page {background:#2A2C3B;background-repeat:no-repeat;background-size:100% 100%;-moz-background-size:100% 100%;background-attachment:fixed;}
 
             @-webkit-keyframes ef_29{
                 from{-webkit-transform: rotate(0deg);}

@@ -1,2 +1,4 @@
 @import "./styles/style_default.wxss";
 page {height:100%;overflow-x:hidden;}
+button:active {transform:scale3d(0.99, 0.99, 1);}
+image:active {transform:scale3d(0.99, 0.99, 1);}

@@ -1,0 +1,69 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.98",
+	"appid": "wx263b9c72fc87b39c",
+	"projectname": "sleeptalk2",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": 2,
+					"name": "fenxiang",
+					"pathName": "pages/fenxiang/fenxiang",
+					"query": "",
+					"scene": "1012"
+				},
+				{
+					"id": -1,
+					"name": "自己",
+					"pathName": "pages/index/index",
+					"query": "user=ocagY4wwnqU9h1gaeMANqbjAmV9c",
+					"scene": "1007"
+				},
+				{
+					"id": -1,
+					"name": "bieren",
+					"pathName": "pages/index/index",
+					"query": "user=o2F-K5WzsBVQcPIf3sW4GhxerN-8",
+					"scene": "1007"
+				},
+				{
+					"id": -1,
+					"name": "guanli",
+					"pathName": "pages/guanli/guanli",
+					"query": "",
+					"scene": "1007"
+				}
+			]
+		}
+	}
+}

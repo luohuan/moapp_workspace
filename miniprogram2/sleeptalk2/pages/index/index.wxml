@@ -1,0 +1,136 @@
+<page class='{{isGotoYourself&&!isFirstOpen?"c-gotoYourself":""}}'>
+  <image src='../../images/bgk2.jpg' class='bgk' mode='widthFix'></image> 
+  <image src='../../images/bgk2_cut.png' class='bgk' mode='widthFix' style='position:fixed;z-index:9;'></image> 
+  <image src='../../images/yueqiu.png' class='ball'></image>
+  <image src='../../images/bgk3_cut.png' class='bgk4' mode='widthFix'></image>   
+  <view class='meteor c-meteor1'></view>
+  <view class='meteor c-meteor2'></view>
+  <view class='meteor c-meteor3'></view>
+  <view class='shenzi' wx:if="{{isYourself&&fangzhi}}" catchtap='share'></view>
+
+  <view class='rightBtn' wx:if="{{isYourself&&fangzhi}}" catchtap='share'>
+    <text>留言管理</text>
+      <!-- <text>{{hour}}{{minute}}</text> -->
+      <!-- <text style='font-size:20rpx;line-height:68rpx;margin-left:-20rpx;'>{{second}}</text> -->
+    <!-- <view wx:if="{{isYourself&&fangzhi}}" catchtap='share' class='share' >
+      <text>留言管理</text>
+    </view> -->
+  </view>
+  
+
+  <image src='../../images/music.png' class='music {{isPaused?"":"c-music"}}' catchtap='startAndPaused'></image>
+ 
+  <!-- <view class='span'>
+    <view class='span2 c-span'>
+      <text>好玩电脑地</text>
+    </view> 
+  </view>    -->
+
+  <!-- 左边三个星球 -->
+  <!-- <block wx:for="{{toneLeft}}" wx:key="unique">
+    <view class='tone c-tone-z-index1' style='{{item[0]}}'>
+      <view class='c-tone11' style='{{item[0]}}'>
+        <view style='{{isAppend?"":item[0]}}' class='{{num>=item[1]?"c-tone10":""}}'>
+          <view class='{{isOpen?"c-open":"c-close"}}'>
+            <view class='nav c-tone12' style='{{item[2]}}'></view> 
+          </view>   
+        </view>
+      </view>
+    </view>
+  </block> -->
+
+  <!-- 右边三个星球 -->
+  <!-- <block wx:for="{{toneRight}}" wx:key="unique">
+    <view class='tone c-tone-z-index2' style='left:610rpx;top:22%;{{item[0]}}'>
+      <view class='c-tone21' style='{{item[0]}}'>
+        <view style='{{isAppend?"":item[0]}}' class='{{num>=item[1]?"c-tone10":""}}'>
+          <view class='{{isOpen?"c-open":"c-close"}}'>
+            <view class='nav c-tone22' style='background-color:white;{{item[2]}}'></view> 
+          </view>  
+        </view>
+      </view>
+    </view>
+  </block> -->
+  
+  <!-- 头像 -->
+  <view wx:if="{{!hasUserInfo && canIUse}}" class='denglu'>
+    <image src='../../images/yueliang.png'></image>
+    <text>亲，请登录 =v=</text>
+    <view class='dengluLine'></view>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='dengluBtn'>登录</button> 
+  </view>
+  <view class='user'>
+    <image src='../../images/paizi.png' class='paizi'></image>
+    <view class='one'>
+      <image wx:if="{{hasUserInfo || !canIUse}}" class='avatar' src='{{tavatar}}'></image>   
+    </view>
+  </view>
+
+  <!-- 输入框 -->
+  <view wx:if="{{fangzhi}}" class='input {{isSend?"c-input":""}}' style='{{isSend?"border-width: 0rpx;":""}}'>
+    <input class='one' confirm-type='send'
+  bindblur="finishInput" bindconfirm='finishInput' value='{{inputValue}}' maxlength="26" bindfocus='upAndDown' >
+    </input>
+    <view class="fasong" wx:if="{{!isSend}}" catchtap='send' hover-class="anxia" hover-stay-time="100" hover-start-time='0'>发送</view>
+    <view class='fasong' style='opacity: 0;width: 18%;height: 70rpx;' catchtap='send'></view>
+    
+    <!-- <image wx:if="{{!isSend&&fangzhi}}" src='../../images/sanjiao.png' class='sanjiao {{isUp&&!isFirstOpen2?"c-sj-up":""}} {{!isUp&&!isFirstOpen2?"c-sj-down":""}}' catchtap='upAndDown'></image> -->
+    <view wx:if="{{!isSend}}" style='width:80%;position:absolute;background-color:white;position:absolute;bottom:0rpx;height:2rpx;left:0;'></view>
+    
+    <swiper class='tishi2' autoplay interval='3000' circular vertical style='{{isUp?"display:none":""}}'>
+      <swiper-item wx:for='{{["#偷偷表白了解一下#","#吐槽#","#调戏一波#"]}}'wx:key="unique" >
+        <text>{{item}}</text>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  
+  <!-- 流星语 -->
+  <view wx:for="{{isStarComing?tmpdansentencelist:dansentencelistcang}}" wx:key="unique" class='danmu {{isOpenList[index]?"c-danmu":""}}' style='{{randomHeightList[index]}}{{item[4]}}' >
+    <image src='{{item[2]}}'></image>
+    <text class='sentence' style='{{item[3]}}'>{{item[0]}}</text>
+  </view>
+
+  <view wx:if="{{!isSend}}" class='nav' catchtap='upAndDown'></view>
+  
+  <!-- 选择句子，推荐句子 -->
+  <view class='xuanzehua' wx:if="{{fangzhi}}">
+  <!-- {{isUp&&!isFirstOpen2?"c-xuanzehua-up":""}} {{!isUp&&!isFirstOpen2?"c-xuanzehua-down":""}} -->
+    <!-- <view wx:for="{{talkListNow}}" >
+      <view class='talk' hover-class='anxia2' hover-start-time='0' hover-stay-time='100' catchtap='xuanze'>
+        <text class='talk2' catchtap='xuanze' data-id='{{item}}'>{{item}}</text> 
+      </view>
+    </view> -->
+    <view class='talk' style='left:20rpx;top:7rpx;' hover-class='anxia2' hover-start-time='0' hover-stay-time='100' catchtap='xuanze'>
+        <text class='talk2' catchtap='xuanze' data-id='{{talkListNow[0]}}'>{{talkListNow[0]}}</text> 
+    </view>
+    <view class='talk' style='left:20rpx;top:80rpx;' hover-class='anxia2' hover-start-time='0' hover-stay-time='100' catchtap='xuanze'>
+        <text class='talk2' catchtap='xuanze' data-id='{{talkListNow[1]}}'>{{talkListNow[1]}}</text> 
+    </view>
+    <view class='talk' style='left:380rpx;top:7rpx;width:60%' hover-class='anxia2' hover-start-time='0' hover-stay-time='100' catchtap='xuanze'>
+        <text class='talk2' catchtap='xuanze' data-id='{{talkListNow[2]}}'>{{talkListNow[2]}}</text> 
+    </view>
+    <view class='huanyipi' catchtap='huanyipi'>
+      <image src='../../images/huanyipi.png'></image>
+      <text>换一批</text>
+    </view>
+    <view wx:if="{{!isSend}}" class='shiming' catchtap='shiming'>
+      <view></view>
+      <image wx:if="{{!isNiming}}" src='../../images/gou.png'></image>
+      <text>实名</text>
+    </view>
+    <!-- <image wx:if='{{fangzhi}}' wx:if="{{!isSend}}" src='../../images/tips.png' class='tips' catchtap='tips'></image> -->
+  </view>
+
+  
+
+  <view wx:if='{{fangzhi}}' class='guanli' hover-class='anxia3' hover-start-time='0' hover-stay-time='100' catchtap='guanli'>
+    <text>{{isYourself?"邀请好友留言":"创建我留言面板"}}</text>
+  </view>
+  <!-- 上方提示 -->
+  <swiper class='tishi' autoplay interval='3000' circular vertical>
+    <swiper-item wx:for='{{["#快快分享给小伙伴吧#","#点击管理看历史消息#","#点击分享发送至朋友圈#"]}}' wx:key="unique">
+      <text>{{item}}</text>
+    </swiper-item>
+  </swiper>
+</page>

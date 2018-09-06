@@ -405,12 +405,12 @@ class listPage(Page):
         mo.showAlert('好友名字契合度','你们名字契合度分数为%s分'% str(int(random.random()*100)))
 
     def onInit():   
-        mo.setNavibarTitle('专业测试占卜')
-        if page.options.channel != None:
-            user.channel = page.options.channel
-        page.neirong.hidden = False
-        #page.auditing_box.hidden = False
-        #mo.setNavibarTitle('名字匹配')
+        # mo.setNavibarTitle('专业测试占卜')
+        # if page.options.channel != None:
+        #     user.channel = page.options.channel
+        # page.neirong.hidden = False
+        page.auditing_box.hidden = False
+        mo.setNavibarTitle('名字匹配')
         if page.options.mpid:
             mo.stat('mpid_%s'%page.options.mpid)
         page.dormitorylist.data = dormitorydata  #获取列表信息

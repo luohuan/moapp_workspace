@@ -1,6 +1,13 @@
 const moapp = require("./utils/moapp.js");
 
 App({
+    globalData: {
+            uiBaseAttr4Server: ['hidden', 'color', 'width', 'height', 'background', 'backgroundColor', 'left', 'top', 'right', 'bottom', 'fontSize', 'fontWeight', 'opacity', 'text'],
+            env: 'test',
+            signature: '75EF98A44FDFB69896B7A0130DBE41A72E213D21',
+            domain: 'https://api.moapp.mogoboom.com',
+            upload: 'https://upload.motimaster.com/upload/image',
+        },
     onLaunch: function(options) {
             this.globalData.scene = options.scene || 0;
             moapp.appBgmAllInOne(this);
@@ -29,12 +36,5 @@ App({
                 }
               })
             });
-        },
-    globalData: {
-            uiBaseAttr4Server: ['hidden', 'color', 'width', 'height', 'background', 'backgroundColor', 'left', 'top', 'right', 'bottom', 'fontSize', 'fontWeight', 'opacity', 'text'],
-            env: 'test',
-            signature: 'F95524DF3C1F890EDD100D18AA533AB38958BB13',
-            domain: 'https://api.moapp.mogoboom.com',
-            upload: 'https://upload.motimaster.com/upload/image',
         },
 })

@@ -315,26 +315,36 @@ module.exports = {
     var _this = this;
 
     evt = evt || {};
-
+    if(typeof url=='string') {
+      url = [url]
+    }
+    console.log(url)
     return new Promise((resolve, reject) => {
         _this.checkAuthSetting('scope.writePhotosAlbum', '您现在不允许小程序访问手机相册，不能保存到朋友圈，请打开"保存到相册"').then(() => {
-            wx.showLoading({
-                'title': '保存中'
-            });
-            wx.downloadFile({
-                url: url,
+           
+            (function iterator(i){
+               if(i==url.length){
+                  console.log('图片下载完成')
+                  wx.hideLoading()
+                  wx.showToast({
+                          title: "图片下载完成",
+                          icon: 'none',
+                          duration: 1500
+                      });
+                  resolve(evt)
+                  return
+               }
+                wx.showLoading({
+                'title': '保存中' + (i+1) + '/'+url.length
+              });
+               wx.downloadFile({
+                url: url[i],
                 success: function(res) {
                     wx.saveImageToPhotosAlbum({
                         filePath: res.tempFilePath,
                         success: function(res) {
-                            wx.hideLoading();
-                            /*wx.showToast({
-                                title: "图片保存成功",
-                                icon: 'success',
-                                duration: 1500
-                            });*/
-                            _this.showAlert( '保存成功', '已保存到相册，快去分享吧~');
-                            resolve(evt);
+                            
+                            iterator(i+1)
                         },
                         fail: function(res) {
                             wx.showToast({
@@ -355,6 +365,7 @@ module.exports = {
                     reject(evt);
                 }
             }); // wx.downloadFile 
+            })(0);
         },
         () => {
           wx.showToast({
@@ -535,5 +546,48 @@ module.exports = {
     wx.setNavigationBarTitle({
       title: text
     });
+  },
+  setUserData: (res, key, value) => {
+     var sessionID = res.sessionID
+     const app = getApp()
+     return new Promise((resolve, reject)=> {
+        wx.request({
+          url: `${app.globalData.domain}/userdata`,
+          method: 'POST',
+          data: {
+            'sessionID': sessionID,
+            'key': key,
+            'value': value
+          },
+          success: function(res){
+            res.data.sessionID = sessionID
+            resolve(res.data)
+          },
+          fail: function(res){
+            reject(res)
+          }
+        })
+     })
+  },
+  getUserData: (res, key) => {
+    var sessionID = res.sessionID
+    const app = getApp()
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: `${app.globalData.domain}/userdata`,
+        method: 'GET',
+        data:{
+          'sessionID': sessionID,
+          'key': key, 
+        },
+        success:function(res){
+          res.data.sessionID = sessionID
+          resolve(res.data)
+        },
+        fail: function(res){
+          reject(res)
+        }
+      })
+    })
   }
 }

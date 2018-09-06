@@ -1,0 +1,10 @@
+<view class='container'>
+  <block wx:for="{{danmus}}" wx:key="suoyin">
+    <view wx:if="{{item.show}}" class='danmu' style='animation: 10s {{item.delay}}s test  linear both;animation-fill-mode: both;top:{{item.top}}rpx;{{danmuStyle}}'>{{item.text}}
+      <image class='avatar' style='{{avatarStyle}}' src='{{item.avatarUrl}}'></image>
+      <image class='tailImage' style="{{tailImageStyle}}" src='{{tailImage}}'></image>
+      <image class='headImage' style="{{headImageStyle}}" src='{{headImage}}'></image>
+
+    </view>
+  </block>
+</view>

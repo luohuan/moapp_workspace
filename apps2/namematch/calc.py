@@ -20,9 +20,9 @@ FEMALE = 2
 def getNumber(word):
     if len(word) == 1 and isChineseWord(word):
         num = word.encode('unicode_escape')[2:].decode()
-        result = (int(num, 16))%99
-        while result < 10:
-            result = result + 10
+        result = (int(num, 16))%100
+        # while result < 10:
+        #     result = result + 10
         return result
 
     else:
@@ -74,7 +74,7 @@ def calcName(name1, gender1, name2, gender2):
 
         items = []
         for i in range(len(numbers)-1):
-            items.append( (numbers[i] + numbers[i+1]))
+            items.append( (numbers[i] + numbers[i+1])%1000)
 
         return getSum(items, result)
 

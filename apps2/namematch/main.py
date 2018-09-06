@@ -265,9 +265,9 @@ def makeShareImage():
     #ret = mo.acode.make('entrance', {})
 
     
-    canvas = mo.mopic.createCanvas(500, 500)
-    canvas.addImage('http://img.mogodeer.cn/images/diudiu/name/erweima.jpg', pos=[0, 0, 500, 500])
-    canvas.addImage(ret['url'], pos=[150, 250, 200, 200])
+    canvas = mo.mopic.createCanvas(750, 750)
+    canvas.addImage('http://material.motimaster.com/harvey/5455/myrose/b7f590bec1b987273fbf77b473695298.png', pos=[0, 0, 750, 750])
+    canvas.addImage(ret['url'], pos=[260, 360],size=[230,230])
     #canvas.addImage(headimg, pos=[225, 325, 50, 50], mask='circle')
     mo.console( headimg)
 
@@ -389,7 +389,7 @@ def changeName(user, app, page, mo, params):
 
 
 # 名字叫home的页面
-AUDITING = True
+AUDITING = False
 from moapp.lib.client import *
 class entrance(Page):
     backgroundColor="#383838"
@@ -434,7 +434,15 @@ class entrance(Page):
         mo.showAlert('好友名字契合度','你们名字契合度分数为%s分'% str(int(random.random()*100)))
     
     def onInit():
-        mo.console('main page init')
+        # mo.console('用户头像-------------------')
+        # mo.console(user.avatarUrl)
+        # mo.console(user.openid)
+        # mo.console('用户昵称')
+        # mo.console(user.nickName)
+        # mo.console(user.city)
+        # mo.console(user.province)
+        # mo.console(user.country)
+        # mo.console('main page init')
         page.loading_box.show()
         #inputNameBoxInit()
         if AUDITING == True:
@@ -536,7 +544,7 @@ class match(Page):
     barStyle='#383838'  
 
     def UI(self):
-        Image(name='banner1',hidden=True,src='http://material.motimaster.com/harvey///461a86c0052304000b0271c8e0b38388.jpeg',size=[750, 155])
+        Image(name='banner1',hidden=True,onTap=banner1Tap,src='http://material.motimaster.com/harvey///461a86c0052304000b0271c8e0b38388.jpeg',size=[750, 155])
         with Box(name='sample_box', pos=[0,0], hidden=True, width=750,background='#383838'):
             Image(name='page2image1',pos=[0,0],size=[750,339],src="img/bg3.jpg")
             #默契度计算list
@@ -577,7 +585,7 @@ class match(Page):
 
 
                 #Image(name='banner2',hidden=True,position='relative',src='http://material.motimaster.com/harvey///461a86c0052304000b0271c8e0b38388.jpeg',size=[750, 125])
-                Image(name='banner2',hidden=True,pos=[33,0],src='http://material.motimaster.com/harvey///461a86c0052304000b0271c8e0b38388.jpeg',size=[686, 160])
+                Image(name='banner2',hidden=True,onTap=banner2Tap,pos=[33,0],src='http://material.motimaster.com/harvey///461a86c0052304000b0271c8e0b38388.jpeg',size=[686, 160])
                 with Box(name='mad',width=686, position='relative',hidden=False,height='92px',pos=[33,0]):
                     AD(unitId='adunit-cc93fcd34edc5123')
             
@@ -593,7 +601,7 @@ class match(Page):
                 with Box(pos=[33, 50], size=[686, 1200],border='1px solid #FFFFFF',borderRadius='0%',background='http://img.mogodeer.cn/images/diudiu/ceshi1/wnagge.jpg',boxShadow ='3px 3px 1px 3px rgba(208,63,63,0.9)',marginBottom=50):
                     makeResultUI('detail_', 0, -10)
                     Text(name='wenan2', background='white',text='', fontSize=28,pos=['center', 860], width=600)
-
+                    Image(src='img/delete2.png',size=[80,80],right=12, top=12)
             with Mask(name='change_name_mask', locked=True, hidden=True):
 
                 with Box(pos=[43, 300], size=[666, 500],border='1px solid #FFFFFF',borderRadius='0%',background='#383838',boxShadow ='3px 3px 1px 3px rgba(208,63,63,0.9)',marginBottom=50):
@@ -610,6 +618,12 @@ class match(Page):
         with Box(name='loading_box', pos=[0,0], size=[750,1333],background='#383838'):           
            Image(src='img/loading.png', size=[200, 200], pos=[275, 200],effect=rotate(deg=(0,360),d=0,t=2,c=0,p=0,s=0,o=(50,50)))
            Text(text='加载中,请稍后...', width=750, textAlign='center', color='#ffffff', pos=['center', 700])
+
+    def banner1Tap():
+        mo.gotoMiniProgram('wxf7c6308b0e199d50', 'pages/listPage/listPage?channel=swlpdxcx' )
+
+    def banner2Tap():
+        mo.gotoMiniProgram('wxf7c6308b0e199d50', 'pages/listPage/listPage?channel=swlpdxcx' )
 
     def deleteMask():
         page.change_name_mask.hidden = True
@@ -640,26 +654,28 @@ class match(Page):
             host = mo.token.getHostInfo()
             ret = calcName(host_name, host['gender'], user.name, user.gender)
             mo.console(ret)
-            mo.token.setGuestData(user.openid, result=ret)
+            mo.token.setGuestData(user.openid, result=ret,name=name)
+            #mo.token.setGuestData(user.openid, name=name)
             tokenid = user.get('tokenid')
             if tokenid != None:
                 token = mo.getToken(tokenid)
+                token.set('host_name', name)
                 guests = token.getGuestList()
                 for guest in guests:
                     ret = calcName(name, user.gender, guest['name'], guest['gender'])
                     token.setGuestData(guest['openid'],result=ret)
-
+                    #token.setGuestData(guest['openid'],name=ret)
 
             mo.token.redirectTo('match')
     
     #页面初始化
     def onInit():
-        #mo.wxpay.pay('查看详情', 0.1, onPaySuccess, onPayFail)
-        #page.mad.hidden = True
+        
+        
         page.banner2.hidden = True
-        page.banner1.hidden = True
+        page.banner1.hidden = False
         mode = page.options.mode
-        page.match_box.top = 0
+        #page.match_box.top = 0
 
         if mo.token.isHost():
             page.host_name_button.hidden = False
@@ -758,7 +774,7 @@ class match(Page):
             # wenan2 += DESCRIBE[0]
             wenan += '总得来说，'
             wenan += DESCRIBE[int(result_number)%len(DESCRIBE)]
-            page.wenan.text = wenan
+            #page.wenan.text = wenan
 
             process = last_guest['result']['process']
             page.num00.text = process[0][0]
@@ -978,7 +994,7 @@ class match(Page):
         # wenan2 += DESCRIBE[0]
         wenan2 += '总得来说，'
         wenan2 += DESCRIBE[int(result_number)%len(DESCRIBE)]
-        page.wenan2.text = wenan2
+        #page.wenan2.text = wenan2
 
         page.detail_total_num.text = guest['result']['score']
 

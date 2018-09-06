@@ -1,0 +1,54 @@
+.container {
+  width: 100%;
+  height: 600rpx;
+  
+  position: relative;
+  overflow: hidden;
+}
+
+.danmu{
+  position: absolute;
+  color: black;
+  height: 60rpx;
+  left: 0;
+  width: auto;
+  border-radius: 30rpx; 
+  line-height: 60rpx;
+  padding: 0 80rpx;
+  background: #2BD5D5;
+  display:block;
+  overflow: visible;
+  word-break: keep-all;
+  font-size: 35rpx;
+  
+}
+
+ @keyframes test {
+  0% {
+    transform: translateX(750rpx)
+  }100%{
+    transform: translateX(-100%)
+  }
+} 
+.tailImage{
+  position: absolute;
+  right: 0;
+  width: 80rpx;
+  height: 80rpx;
+  top:0;
+}
+.headImage{
+  position: absolute;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  top:0;
+}
+.avatar{
+  position:absolute;
+  width:60rpx;
+  height:60rpx ;
+  border-radius:50%;
+  top:0rpx;
+  left:10rpx;
+}

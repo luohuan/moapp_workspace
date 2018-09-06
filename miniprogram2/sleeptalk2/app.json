@@ -1,0 +1,10 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/guanli/guanli",
+    "pages/fenxiang/fenxiang"
+  ],
+  "window":{
+    "navigationStyle":"custom"
+  }
+}

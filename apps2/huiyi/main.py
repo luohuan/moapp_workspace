@@ -8,8 +8,8 @@ pageColor = '#FEB621'
 guestColor = '#FEB621'
 
 
-AUDITING = True  #是否是审核状态
-ENABLE_PAY = False #是否开启支付
+AUDITING = False  #是否是审核状态
+ENABLE_PAY = True #是否开启支付
 
 def starblink():
     efbkink1 = blink("0.8, 0.4, 0.8, 1.2")
@@ -265,6 +265,7 @@ def shareReady(user, app, page, mo):
     params = {
         "page":'page1',
         "width":140,
+        'logo':  user.avatarUrl,
         'options':{
             "openid": user.openid,
             'avatar':user.avatarUrl,
@@ -279,8 +280,8 @@ def shareReady(user, app, page, mo):
         canvas = mo.mopic.createCanvas(750, 750)
     canvas.addImage('http://material.motimaster.com/yuyuan/Duudle/create/93c539e06f357977dc224f88e952ba3f.jpg', pos=[0,0,750,750])
     
-    canvas.addImage(erweima, pos=[225,350,300,300], mask='circle')
-    canvas.addImage(user.avatarUrl, pos=[305, 430,140,140], mask='circle')
+    canvas.addImage(erweima, pos=[225,350,300,300])
+    #canvas.addImage(user.avatarUrl, pos=[305, 430,140,140], mask='circle')
     res = canvas.makeImage()
     mo.console(res)
     if res['ret'] == 0:
@@ -490,7 +491,7 @@ async def submit(user, app, page, mo):
 async def mainPageReady(user, app, page, mo):
 
     hide_pay = True
-
+    page.tip1.width=500
     if int(page.options.is_host) == 1:
         if user.unlockAll != True:
             hide_pay = False

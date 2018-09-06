@@ -4,8 +4,9 @@ App({
     globalData: {
             uiBaseAttr4Server: ['hidden', 'color', 'width', 'height', 'background', 'backgroundColor', 'left', 'top', 'right', 'bottom', 'fontSize', 'fontWeight', 'opacity', 'text'],
             env: 'test',
-            signature: '7F69582C9C6CBE9008042A11FB2520E38A8F4252',
-            domain: 'https://api.moapp.mogoboom.com'
+            signature: '037F1859F5B43FDFA3B463277F2FC9D1A130825E',
+            domain: 'https://api.moapp.mogoboom.com',
+            upload: 'https://upload.motimaster.com/upload/image',
         },
     onLaunch: function(options) {
             this.globalData.scene = options.scene || 0;

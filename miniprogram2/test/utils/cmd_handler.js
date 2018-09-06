@@ -39,6 +39,23 @@ module.exports = {
     __showAlert(ctx, cmd_data, page_data) {
         ctx.moapp.showAlert(cmd_data.title, cmd_data.content);
     },
+    __showConfirm(ctx, cmd_data, page_data) {
+      wx.showModal({
+        title: cmd_data.title || '提示',
+        content: cmd_data.content || '',
+        success: (res) => {
+          if (res.confirm) {
+            ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.confirm.function, ctx.params);
+          } else if (res.cancel) {
+            ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, cmd_data.cancel.function, ctx.params);
+          }
+        },
+        fail: (res) => {
+          console.log('showModal fail! err:');
+          console.log(res);
+        }
+      }); // showModal        
+    },    
     __showTips(ctx, cmd_data, page_data) {
         wx.showToast({
           title: cmd_data.text,
@@ -156,7 +173,23 @@ module.exports = {
         }
       );
     },
+    getImageInfo(url){
+      return new Promise((resolve, reject)=> {
+        wx.getImageInfo({
+          src: url,
+          success:function(res){
+            console.log(res.width)
+            console.log(res.height)
+            resolve([res.width,res.height])
+          }
+        })
+      })
+
+
+    }
+    ,
     __uploadImage(ctx, cmd_data, page_data){
+      var _self = this
       console.log('uploadImage')
       var upcmd_data = cmd_data
       wx.chooseImage({
@@ -172,49 +205,66 @@ module.exports = {
           var len_file = tempFilePaths.length
           var up_success = 0;
           var success_url = []
+          var success_url_info = []
           var up_fail = 0
           var total_up = 0
           const app = getApp();
           for (var i = 0; i < len_file; i++) {
-            wx.uploadFile({
-              url: `${app.globalData.upload}`,
-              filePath: tempFilePaths[i],
-              name: 'file',
-              formData: {
-                'appid': ctx.appid,
-              },
-              success: function (res) {
-                var data = JSON.parse(res.data)
-                if (res.statusCode == 200) {
-                  up_success += 1;
-                  total_up += 1;
-                  success_url.push(data.url)
-                  wx.showLoading({
-                    title: '上传中' + up_success + '/' + tempFilePaths.length,
-                  })
-                } else {
+            //_self.getImageInfo(tempFilePaths[i]).then(res2=>{
+            (function(index){
+              wx.getImageInfo({
+              src: tempFilePaths[index],
+              success:function(resp){
+                //var temp_i = i
+                console.log(resp.width)
+                console.log(resp.height)
+                console.log(tempFilePaths)
+                wx.uploadFile({
+                url: `${app.globalData.upload}`,
+                filePath: tempFilePaths[index],
+                name: 'file',
+                formData: {
+                  'appid': ctx.appid,
+                },
+                success: function (res) {
+                  var data = JSON.parse(res.data)
+                  if (res.statusCode == 200 && data.ret ==0) {
+                    up_success += 1;
+                    total_up += 1;
+                    success_url.push(data.url)
+                    success_url_info.push({'width':resp.width,'height':resp.height,'orientation':resp.orientation,'type':resp.type})
+                    wx.showLoading({
+                      title: '上传中' + up_success + '/' + tempFilePaths.length,
+                    })
+                  } else {
+                    total_up += 1;
+                    up_fail += 1
+                  }
+                },
+                fail:function(){
                   total_up += 1;
                   up_fail += 1
+                },
+                complete:function(){
+                  if (total_up == len_file){
+                    console.log(ctx.params)
+                    ctx.params.params = {}
+                    ctx.params.params.urls = success_url
+                    ctx.params.params.images = success_url
+                    console.log(success_url_info)
+                    ctx.params.params.imagesInfo = success_url_info
+                    ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, upcmd_data.success.function, ctx.params);
+                    wx.hideLoading()
+                    wx.showToast({
+                      title: '上传完成',
+                    })
+                  }
                 }
-              },
-              fail:function(){
-                total_up += 1;
-                up_fail += 1
-              },
-              complete:function(){
-                if (total_up == len_file){
-                  console.log(ctx.params)
-                  ctx.params.params = {}
-                  ctx.params.params.urls = success_url
-                  ctx.params.params.images = success_url
-                  ctx.moapp.requestCloudFunction(ctx.page_obj, ctx.appid, ctx.module_name, upcmd_data.success.function, ctx.params);
-                  wx.hideLoading()
-                  wx.showToast({
-                    title: '上传完成',
-                  })
-                }
-              }
+              })
+             }
             })
+            })(i)
+            
           }
         },
         fail:function(){

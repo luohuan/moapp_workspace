@@ -1,12 +1,12 @@
 {
     "pages": [
-        "pages/listPage/listPage",
+        "pages/MainPage/MainPage",
         "pages/__web_page/web_page"
     ],
     "window": {
-        "navigationBarTitleText": "娱乐盒子",
-        "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTextStyle": "black"
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "游戏盒子",
+        "backgroundTextStyle": "light"
     }
 }

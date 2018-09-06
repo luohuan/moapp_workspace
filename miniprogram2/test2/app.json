@@ -1,0 +1,12 @@
+{
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundTextStyle": "light",
+        "navigationBarTitleText": "List sample"
+    },
+    "pages": [
+        "pages/index/index",
+        "pages/__web_page/web_page"
+    ]
+}
