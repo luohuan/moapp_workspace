@@ -45,7 +45,7 @@ Component({
       }
     },
 
-    tailImage: {
+    danmuTailImage: {
       type: String,
       value: '',
       observer: function(newVal, oldVal){
@@ -57,7 +57,7 @@ Component({
         })
       }
     },
-    tailImageStyle: {
+    danmuTailImageStyle: {
       type: String,
       value: '',
       observer: function(newVal, oldVal){
@@ -69,7 +69,7 @@ Component({
         })
       }
     },
-    avatarStyle: {
+    danmuAvatarStyle: {
       type: String,
       value: '',
       observer: function(newVal, oldVal){
@@ -82,7 +82,7 @@ Component({
       }
     }
     ,
-    headImage: {
+    danmuHeadImage: {
       type: String,
       value: '',
       observer: function(newVal, oldVal){
@@ -94,7 +94,7 @@ Component({
         })
       }
     },
-    headImageStyle: {
+    danmuHeadImageStyle: {
       type: String,
       value: '',
       observer: function(newVal, oldVal){
@@ -106,11 +106,66 @@ Component({
         })
       }
     },
-    newDanmu:{
-      type: String,
-      value: {},
+    danmuHeight: {
+      type: Number,
+      value: 35,
+      observer: function(newVal, oldVal){
+        if(!newVal){
+          return
+        }
+        this.setData({
+          'danmuHeight':newVal
+        })
+      }
+    },
+    danmuMargin: {
+      type: Number,
+      value: 20,
+      observer: function(newVal, oldVal){
+        if(!newVal){
+          return
+        }
+        // this.setData({
+        //   'danmuMargin':newVal
+        // })
+        //this.danmuMargin = newVal
+      }
+    },
+    danmuRowNumber: {
+      type: Number,
+      value: 8,
+      observer: function(newVal, oldVal){
+        console.log('observerDanmuRowNumber')
+        console.log(newVal)
+        if(!newVal){
+          return
+        }
+        this.danmuRowNumber = newVal
+        
+        // this.setData({
+        //   'danmuRowNumber':newVal
+        // })
+      }
+    },
+    danmuFontSize:{
+      type:Number,
+      value: 25,
       observer:function(newVal, oldVal){
-       
+        console.log('fontSize'+ newVal)
+      }
+    },
+    danmuLineHeight: {
+      type:Number,
+      value: 35,
+      observer:function(newVal, oldVal){
+        console.log('lineHeight'+ newVal)
+      }
+    },
+    danmuBackground:{
+      type: String,
+      value: 'white',
+      observer:function(newVal, oldVal){
+        console.log('background'+ newVal)
       }
     }
   },
@@ -124,8 +179,12 @@ Component({
     "tailImage":'',
     "headImageStyle":'',
     'headImage':'',
+    
   },
   lastThreeTop: [],
+  // 'danmuRowNumber': 5,
+  // 'danmuMargin': 20,
+  //'danmuHeight': 60,
   /**
    * 组件的方法列表
    */
@@ -164,7 +223,15 @@ Component({
       }, timeout)
     },
     getCurrentTop: function () {
-      var allTops = [20, 120, 220, 320, 420, 520]
+      // var allTops = [20, 120, 220, 320, 420, 520]
+      console.log('getCurrentTop')
+      console.log(this.data.danmuRowNumber)
+      console.log(this.data.danmuHeight)
+      console.log(this.data.danmuMargin)
+      var allTops = []
+      for(var index=0; index<this.data.danmuRowNumber; index++){
+        allTops.push(index*(this.data.danmuHeight+this.data.danmuMargin))
+      }
       while (true) {
 
         var randomTopindex = parseInt(allTops.length * Math.random())
@@ -197,7 +264,7 @@ Component({
         var danmu = {}
         danmu.suoyin = Math.random()
         danmu.text = newVal.text
-        danmu.avatar = newVal.avatarUrl
+      danmu.avatarUrl = newVal.avatarUrl
         danmu.show = true
         danmu.delay = 0
         danmu.top = that.getCurrentTop()

@@ -2,7 +2,7 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 
 Page({
-    onViewTap_In01R9:  function(evt) {
+    onViewTap_RoUcyi:  function(evt) {
                 var self = this;
                 
             self.setData({
@@ -81,9 +81,8 @@ Page({
                         path: `/pages/${this.data.__share_page}/${this.data.__share_page}?`+options,
                         success: function(res) {
                             console.log('share successed');
-                            console.log(res);
-                            
-                            
+                            //console.log(res);
+                            console.log(`/pages/${self.data.__share_page}/${self.data.__share_page}?`+options)
                             var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "second", self, {});
                             Promise.resolve(evt_data)
                         },
@@ -107,7 +106,9 @@ Page({
                         shareInfo.imageUrl = this.data.__share_image;                    
                     }
 
-                    console.log(shareInfo)
+                    console.log(`share page info:
+/pages/${self.data.__share_page}/${self.data.__share_page}?`+options);
+
                     return shareInfo;                
                 },
     onLoad: function(options) {

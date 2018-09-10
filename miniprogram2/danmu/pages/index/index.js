@@ -2,54 +2,7 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 
 Page({
-    onInputChange_I5YlYP:  function(evt) {
-                var self = this;
-                
-            self.setData({
-                __inputDanmu_value: evt.detail.value
-            })
-            ;
-                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.detail.value);
-               
-                Promise.resolve(evt_data).then( function(evt) {
-            return evt;
-        }
-        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
-            }
-            ,
-    onGetUserInfo_CW25M1:  function(evt) {
-                    var self = this;
-
-                    if (evt.detail.userInfo) {
-                        app.globalData.userInfo = evt.detail.userInfo;
-
-                        var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
-                        Promise.resolve(evt_data).then( function(evt) {
-                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'sendBarrage', evt);
-            }
-            ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
-                    } else {
-                        console.log('get user info fail! error message:' + evt.detail.errMsg);
-                    }
-                }
-                ,
-    onButtonTap_16AG7K:  function(evt) {
-                var self = this;
-                ;
-                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
-                Promise.resolve(evt_data).then( function(evt) {
-            evt.params = 
-            {
-                id: evt.data.id,
-
-            }
-            ;
-            return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'onRecommandTap', evt);
-        }
-        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
-            }
-            ,
-    onButtonTap_UVt8Ri:  function(evt) {
+    onButtonTap_sGK458:  function(evt) {
                 var self = this;
                 ;
                 var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
@@ -69,20 +22,89 @@ Page({
         ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
             }
             ,
+    onInputChange_VPuOWd:  function(evt) {
+                var self = this;
+                
+            self.setData({
+                __inputDanmu_value: evt.detail.value
+            })
+            ;
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.detail.value);
+               
+                Promise.resolve(evt_data).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'InputOnChange', evt);
+            }
+            ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
+            ,
+    onGetUserInfo_weFLHU:  function(evt) {
+                    var self = this;
+
+                    if (evt.detail.userInfo) {
+                        app.globalData.userInfo = evt.detail.userInfo;
+
+                        var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
+                        Promise.resolve(evt_data).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'sendBarrage', evt);
+            }
+            ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+                    } else {
+                        console.log('get user info fail! error message:' + evt.detail.errMsg);
+                    }
+                }
+                ,
+    onButtonTap_KtSBLb:  function(evt) {
+                var self = this;
+                ;
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
+                Promise.resolve(evt_data).then( function(evt) {
+            evt.params = 
+            {
+                id: evt.data.id,
+
+            }
+            ;
+            return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'onRecommandTap', evt);
+        }
+        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
+            ,
+    onCheckBoxGroupChang2e_574Y5s:  function(evt) {
+                var self = this;
+                
+            self.setData({
+                __tip2_value: evt.detail.current
+            })
+            ;
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.detail.current);               
+                Promise.resolve(evt_data).then( function(evt) {
+            return evt;
+        }
+        ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
+            ,
     data: {
     "objects": [
         "danmu",
         "inputDanmu",
-        "recommands"
+        "recommands",
+        "tip2",
+        "imgUrls"
     ],
     "__danmu_data": "",
+    "__danmu_danmuFontSize": 25,
+    "__danmu_danmuLineHeight": 35,
+    "__danmu_danmuBackground": "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))",
     "__danmu_danmuStyle": "",
-    "__danmu_tailImage": "",
-    "__danmu_avatarStyle": "",
-    "__danmu_tailImageStyle": "",
-    "__danmu_headImage": "",
-    "__danmu_headImageStyle": "",
-    "__inputDanmu_placeholder": "\u8bf7\u8f93\u5165\u5f39\u5e55",
+    "__danmu_danmuTailImage": "",
+    "__danmu_danmuAvatarStyle": "width:35rpx;height:35rpx;left:0;",
+    "__danmu_danmuTailImageStyle": "",
+    "__danmu_danmuTeadImage": "",
+    "__danmu_danmuHeadImageStyle": "",
+    "__danmu_danmuHeight": 35,
+    "__danmu_danmuMargin": 20,
+    "__danmu_danmuRowNumber": 5,
+    "__inputDanmu_placeholder": "",
     "__inputDanmu_value": "",
     "__inputDanmu_color": "white",
     "__inputDanmu_width": "400rpx",
@@ -92,7 +114,17 @@ Page({
     "__inputDanmu_fontSize": "27rpx",
     "__recommands_data": "",
     "__recommands_left": "50rpx",
-    "__recommands_bottom": "150rpx"
+    "__recommands_bottom": "150rpx",
+    "__tip2_current": "",
+    "__tip2_indicatorDots": "",
+    "__tip2_autoplay": true,
+    "__tip2_indicatorActiveColor": "",
+    "__tip2_value": "",
+    "__tip2_width": "200rpx",
+    "__tip2_height": "60rpx",
+    "__tip2_left": "50rpx",
+    "__tip2_bottom": "320rpx",
+    "__imgUrls_data": ""
 },
     onReady:  function () {
                     var self = this;
@@ -150,9 +182,8 @@ Page({
                         path: `/pages/${this.data.__share_page}/${this.data.__share_page}?`+options,
                         success: function(res) {
                             console.log('share successed');
-                            console.log(res);
-                            
-                            
+                            //console.log(res);
+                            console.log(`/pages/${self.data.__share_page}/${self.data.__share_page}?`+options)
                             var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, {});
                             Promise.resolve(evt_data)
                         },
@@ -176,7 +207,9 @@ Page({
                         shareInfo.imageUrl = this.data.__share_image;                    
                     }
 
-                    console.log(shareInfo)
+                    console.log(`share page info:
+/pages/${self.data.__share_page}/${self.data.__share_page}?`+options);
+
                     return shareInfo;                
                 },
     onLoad: function(options) {

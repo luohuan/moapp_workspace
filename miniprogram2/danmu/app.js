@@ -1,8 +1,7 @@
 const moapp = require("./utils/moapp.js");
 
 App({
-    onLaunch: function(options) {
-            
+    onLaunch: function(options) {            
             this.globalData.scene = options.scene || 0;
             moapp.appBgmAllInOne(this);
             console.log(`launch moapp, appid:wx263b9c72fc87b39c, env:${this.globalData.env}, signature:${this.globalData.signature}`);
@@ -23,11 +22,12 @@ App({
                 }
               })
             });
+            ;
         },
     globalData: {
             uiBaseAttr4Server: ['hidden', 'color', 'width', 'display', 'height', 'background', 'backgroundColor', 'left', 'top', 'right', 'bottom', 'fontSize', 'fontWeight', 'opacity', 'text'],
             env: 'dev',
-            signature: '7359FD051F34610ECCC04D6B81E41D711E5A4FFE',
+            signature: 'C51879AC39BC56DFA2324BC82885E53A9EB5288E',
             domain: 'https://dev.mozigu.net/moapp',
             upload: 'https://dev.mozigu.net/upload/image',
         },
