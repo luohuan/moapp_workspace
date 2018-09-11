@@ -53,7 +53,7 @@ Component({
           return
         }
         this.setData({
-          'tailImage':newVal
+          'danmuTailImage':newVal
         })
       }
     },
@@ -65,7 +65,7 @@ Component({
           return
         }
         this.setData({
-          'tailImageStyle':newVal
+          'danmuTailImageStyle':newVal
         })
       }
     },
@@ -77,7 +77,7 @@ Component({
           return
         }
         this.setData({
-          'avatarStyle': newVal
+          'danmuAvatarStyle': newVal
         })
       }
     }
@@ -90,7 +90,7 @@ Component({
           return
         }
         this.setData({
-          'headImage':newVal
+          'danmuHeadImage':newVal
         })
       }
     },
@@ -102,7 +102,7 @@ Component({
           return
         }
         this.setData({
-          'headImageStyle':newVal
+          'danmuHeadImageStyle':newVal
         })
       }
     },
@@ -135,8 +135,8 @@ Component({
       type: Number,
       value: 8,
       observer: function(newVal, oldVal){
-        console.log('observerDanmuRowNumber')
-        console.log(newVal)
+        // console.log('observerDanmuRowNumber')
+        // console.log(newVal)
         if(!newVal){
           return
         }
@@ -151,21 +151,21 @@ Component({
       type:Number,
       value: 25,
       observer:function(newVal, oldVal){
-        console.log('fontSize'+ newVal)
+        //console.log('fontSize'+ newVal)
       }
     },
     danmuLineHeight: {
       type:Number,
       value: 35,
       observer:function(newVal, oldVal){
-        console.log('lineHeight'+ newVal)
+        //console.log('lineHeight'+ newVal)
       }
     },
     danmuBackground:{
       type: String,
       value: 'white',
       observer:function(newVal, oldVal){
-        console.log('background'+ newVal)
+        //console.log('background'+ newVal)
       }
     }
   },
@@ -196,7 +196,7 @@ Component({
       var timeout = 0
       var index = 0
       const that = this;
-      console.log(datas)
+      //console.log(datas)
       for (var item of datas) {
         var danmu = {};
         danmu.id = item.id
@@ -225,10 +225,10 @@ Component({
     },
     getCurrentTop: function () {
       // var allTops = [20, 120, 220, 320, 420, 520]
-      console.log('getCurrentTop')
-      console.log(this.data.danmuRowNumber)
-      console.log(this.data.danmuHeight)
-      console.log(this.data.danmuMargin)
+      // console.log('getCurrentTop')
+      // console.log(this.data.danmuRowNumber)
+      // console.log(this.data.danmuHeight)
+      // console.log(this.data.danmuMargin)
       var allTops = []
       for(var index=0; index<this.data.danmuRowNumber; index++){
         allTops.push(index*(this.data.danmuHeight+this.data.danmuMargin))
@@ -255,10 +255,10 @@ Component({
     },
     bindinput: function (e) {
       this.currentInput = e.detail.value
-      console.log(this.currentInput)
+      //console.log(this.currentInput)
     },
     itemTap: function(e){
-      console.log(e)
+      //console.log(e)
       var myEventDetail = {'value': e.currentTarget.dataset.oid} // detail对象，提供给事件监听函数
       var myEventOption = {} // 触发事件的选项
       this.triggerEvent('itemtap', myEventDetail, myEventOption)
@@ -269,7 +269,7 @@ Component({
         const that = this
         var danmus = this.data.danmus
         var danmu = {}
-        danmu.id = item.id
+        danmu.id = newVal.id
         danmu.suoyin = Math.random()
         danmu.text = newVal.text
       danmu.avatarUrl = newVal.avatarUrl

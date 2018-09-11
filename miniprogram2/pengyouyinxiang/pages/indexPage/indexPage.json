@@ -1,0 +1,6 @@
+{
+    "disableScroll": true,
+    "usingComponents": {
+        "barrage": "../../components/barrage/barrage"
+    }
+}

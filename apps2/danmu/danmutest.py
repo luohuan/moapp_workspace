@@ -6,7 +6,7 @@ def main():
             Text(text='你有什么要对我说的',pos=['center',100], color='red', fontSize=40)
             ImageAvatar(pos=['center',300], borderRadius='50%', size=[200,200])
             with Box(size=[750,600], pos=[0,200]):
-                Barrage(name='danmu',fontSize=25, avatarStyle='width:35rpx;height:35rpx;left:0;',lineHeight=35, height=35,
+                Barrage(name='danmu',fontSize=25, itemtap=barrageItemTap,avatarStyle='width:35rpx;height:35rpx;left:0;',lineHeight=35, height=35,
                     margin=20,rowNumber=5,background='linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))')
 
             Box(size=[4,190], background='rgb(253, 225, 167)', position='fixed', right=100, top=0, boxShadow='0 0 40rpx 2rpx rgb(253, 225, 167)')
@@ -44,7 +44,13 @@ def main():
 async def InputOnChange(user, app, page, mo):
     page.tip2.hidden=True
 
+async def barrageItemTap(user, app, page, mo ):
+    mo.console(page.danmu.value)
+    #page.danmu.value 拿到是该条记录的id 用于操作数据知道点击的是哪一项
+    
+
 async def indexReady(user, app, page, mo):
+
     page.danmu.data = [{'id':1,'text':'我喜欢你萨达达大厦萨就是垃圾焚烧收到反馈数据反馈时间到发生了大空间','avatarUrl':"http://material.motimaster.com/appmaker/lijiong/2315.png"}, 
         {'id':2,'text':'弹幕一','avatarUrl':"http://material.motimaster.com/appmaker/lijiong/2315.png"},
         {'id':3,'text':'弹幕二','avatarUrl':"http://material.motimaster.com/appmaker/lijiong/2315.png"}, 
@@ -75,12 +81,16 @@ async def onRecommandTap(user, app, page, mo, params):
     page.inputDanmu.value = text
 
 async def sendBarrage(user, app, page, mo):
-
+    if page.inputDanmu.value == None or page.inputDanmu.value == '':
+        mo.showTips('内容不能为空')
+        return
     page.danmu.data.append({'id':page.data.danmuLength+1,'text':page.inputDanmu.value,'avatarUrl':"http://material.motimaster.com/appmaker/lijiong/2315.png"})
     page.data.danmuLength+=1
     page.inputDanmu.value = ''
 
 async def managerReady(user, app, page, mo):
-    page.pinglun.data=[{'id':0,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'},
-    {'id':1,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'},
-    {'id':2,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'}]
+    page.pinglun.data=[
+        {'id':0,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'},
+        {'id':1,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'},
+        {'id':2,'nick':'harvey','pinglun':'测试','avatar':'http://material.motimaster.com/appmaker/lijiong/2315.png'}
+    ]

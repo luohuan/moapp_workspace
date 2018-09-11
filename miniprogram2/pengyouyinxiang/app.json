@@ -1,0 +1,13 @@
+{
+    "window": {
+        "navigationBarBackgroundColor": "black",
+        "navigationBarTitleText": "印象弹幕",
+        "navigationBarTextStyle": "white",
+        "backgroundTextStyle": "light"
+    },
+    "pages": [
+        "pages/indexPage/indexPage",
+        "pages/sharePage/sharePage",
+        "pages/__web_page/web_page"
+    ]
+}

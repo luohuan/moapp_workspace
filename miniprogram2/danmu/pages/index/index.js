@@ -2,7 +2,21 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 
 Page({
-    onButtonTap_sGK458:  function(evt) {
+    itemtap_rEsiA6:  function(evt) {
+                var self = this;
+                
+            self.setData({
+                __danmu_value: evt.detail.value
+            })
+            
+                var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.detail.value);
+                Promise.resolve(evt_data).then( function(evt) {
+                return moapp.requestCloudFunction(self, 'wx263b9c72fc87b39c', 'danmutest', 'test', evt);
+            }
+            ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
+            }
+            ,
+    onButtonTap_OaoP91:  function(evt) {
                 var self = this;
                 ;
                 var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
@@ -22,7 +36,7 @@ Page({
         ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
             }
             ,
-    onInputChange_VPuOWd:  function(evt) {
+    onInputChange_kKrezg:  function(evt) {
                 var self = this;
                 
             self.setData({
@@ -37,7 +51,7 @@ Page({
             ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
             }
             ,
-    onGetUserInfo_weFLHU:  function(evt) {
+    onGetUserInfo_xhKwQ9:  function(evt) {
                     var self = this;
 
                     if (evt.detail.userInfo) {
@@ -53,7 +67,7 @@ Page({
                     }
                 }
                 ,
-    onButtonTap_KtSBLb:  function(evt) {
+    onButtonTap_yl2O4q:  function(evt) {
                 var self = this;
                 ;
                 var evt_data = moapp.genEventData("wx263b9c72fc87b39c", "index", self, evt.currentTarget.dataset);
@@ -69,7 +83,7 @@ Page({
         ).catch( err => {console.log("Event exception, err:");console.log(JSON.stringify(err));})
             }
             ,
-    onCheckBoxGroupChang2e_574Y5s:  function(evt) {
+    onCheckBoxGroupChang2e_9pn4Eu:  function(evt) {
                 var self = this;
                 
             self.setData({
@@ -92,6 +106,7 @@ Page({
         "imgUrls"
     ],
     "__danmu_data": "",
+    "__danmu_value": "",
     "__danmu_danmuFontSize": 25,
     "__danmu_danmuLineHeight": 35,
     "__danmu_danmuBackground": "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))",

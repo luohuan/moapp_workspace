@@ -2,7 +2,7 @@ const app = getApp();
 const moapp = require("../../utils/moapp.js"); 
 
 Page({
-    onViewTap_RoUcyi:  function(evt) {
+    onViewTap_XkFhLa:  function(evt) {
                 var self = this;
                 
             self.setData({
